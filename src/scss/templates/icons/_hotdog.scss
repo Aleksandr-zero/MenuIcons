@@ -1,0 +1,32 @@
+.btn-menu-hotdog {
+	padding: 17px 5px;
+
+	span {
+		position: relative;
+		display: block;
+		width: 44px;
+		height: 5px;
+		border-radius: 4px;
+		background-color: $primary-color-3;
+
+		&::before,
+		&::after {
+			position: absolute;
+			content: "";
+			width: 75%;
+			height: 5px;
+			border-radius: 4px;
+			background-color: $primary-color-3;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		&::before {
+			top: -12px;
+		}
+
+		&::after {
+			bottom: -12px;
+		}
+	}
+}

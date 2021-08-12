@@ -1,0 +1,26 @@
+.example {
+	margin: 100px 0;
+
+	&__items {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	&__item {
+		max-width: 30%;
+		width: 100%;
+
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		&.example-item-active {
+
+		}
+
+		&-content {
+
+		}
+	}
+}

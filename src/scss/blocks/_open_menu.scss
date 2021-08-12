@@ -1,0 +1,30 @@
+.open-menu {
+
+	&__content {
+		max-width: 75%;
+		width: 100%;
+
+		&-items {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		&-item {
+			display: flex;
+
+			&-btn {
+
+				svg {
+					transition: transform $animate ease;
+				}
+
+				&:hover {
+					svg {
+						transform: scale(1.1);
+					}
+				}
+			}
+		}
+	}
+}

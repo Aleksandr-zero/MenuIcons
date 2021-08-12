@@ -18,3 +18,12 @@ a {
 ul {
     list-style: none;
 }
+
+button {
+    outline: none;
+    color: transparent;
+    font-size: 0;
+    border: 0;
+    cursor: pointer;
+    background: transparent;
+}

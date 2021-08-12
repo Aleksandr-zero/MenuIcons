@@ -1,0 +1,28 @@
+.btn-menu-veggie_burger {
+	padding: 14px 6px;
+
+	span {
+		position: relative;
+		display: block;
+		width: 44px;
+
+		&::before,
+		&::after {
+			position: absolute;
+			content: "";
+			width: 44px;
+			height: 5px;
+			border-radius: 4px;
+			background-color: $primary-color-3;
+			left: 0;
+		}
+
+		&::before {
+			top: -10px;
+		}
+
+		&::atfer {
+			bottom: -10px;
+		}
+	}
+}

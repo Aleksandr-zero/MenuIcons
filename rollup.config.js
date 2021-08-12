@@ -1,4 +1,5 @@
 import babel from '@rollup/plugin-babel';
+import { terser } from 'rollup-plugin-terser';
 
 
 export default {
@@ -10,7 +11,17 @@ export default {
 	plugins: [
 		babel({
 			presets: ['@babel/preset-env'],
-			babelHelpers: 'bundled'
-		})
+			babelHelpers: 'bundled',
+			exclude: 'node_modules/**'
+		}),
+		terser({
+			compress: {
+				booleans_as_integers: true,
+				arguments: true,
+				drop_console: true,
+				toplevel: true
+			},
+			keep_fnames: true
+		}),
 	]
 };

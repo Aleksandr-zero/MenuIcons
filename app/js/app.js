@@ -1,8 +1,1 @@
-(function (factory) {
-	typeof define === 'function' && define.amd ? define(factory) :
-	factory();
-}((function () { 'use strict';
-
-
-
-})));
+var factory;factory=function(){"use strict";var e=document.querySelector(".example"),t=document.querySelector(".open-menu"),n=function openMenuDemon(){event.currentTarget.dataset.type;var n=event.currentTarget.closest(".example__item");n.classList.contains("example-item-active")?(n.querySelector(".open-menu__content").remove(),n.classList.remove("example-item-active")):(function removeActiveMenu(){var t=e.querySelector(".example-item-active");t&&(t.classList.remove("example-item-active"),t.querySelector(".open-menu__content").remove())}(),n.append(t.content.cloneNode(1)),n.classList.add("example-item-active"))};document.querySelectorAll(".example__item").forEach((function(e){e.querySelector(".example__item-content-btn").addEventListener("click",n)}))},"function"==typeof define&&define.amd?define(factory):factory();
