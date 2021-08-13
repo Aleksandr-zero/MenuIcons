@@ -5,9 +5,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
 	<link rel="stylesheet" href="./css/style.css">
 
 	<title>Menu Icons</title>
+
+	<style>
+		.hljs {
+			background-color: transparent;
+		}
+	</style>
 
 </head>
 <body>
@@ -22,6 +29,7 @@
 			</div>
 		</div>
 	</header>
+
 	<div class="example">
 		<div class="container">
 			<div class="wrapper">
@@ -29,16 +37,25 @@
 					<li class="example__item">
 						<div class="example__item-content">
 							@@include("./templates/icons/hamburger.html")
+							<div class="example__item-content-back-title">
+								<h4 class="example__item-content-title">Hamburger</h4>
+							</div>
 						</div>
 					</li>
 					<li class="example__item">
 						<div class="example__item-content">
 							@@include("./templates/icons/veggie_burger.html")
+							<div class="example__item-content-back-title">
+								<h4 class="example__item-content-title">Veggie burger</h4>
+							</div>
 						</div>
 					</li>
 					<li class="example__item">
 						<div class="example__item-content">
 							@@include("./templates/icons/hotdog.html")
+							<div class="example__item-content-back-title">
+								<h4 class="example__item-content-title">Hotdog</h4>
+							</div>
 						</div>
 					</li>
 				</ul>
@@ -62,6 +79,12 @@
 			</div>
 		</div>
 	</footer>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/css.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/javascript.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/languages/xml.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 	<script type="module" src="./js/app.js"></script>
 
