@@ -3,11 +3,31 @@ import {
 	TABLE
 } from "./constants.js";
 
+import { createTempHtml_ForDemo } from "./createTemp.js";
+
+
+hljs.highlightAll();
+
 
 const blockExample = document.querySelector(".example");
 const blockExampleItems = blockExample.querySelector(".example__items");
 const templateOpenMenu = document.querySelector(".open-menu-temp");
 
+
+const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
+	// Извлекает html (иконка для меню) при нажатии кнопки для показа кода.
+
+	let currentMenuIconTemp = pressedBtn.closest('.example-item-active').querySelector(".example__item-content-wrapper-btn").cloneNode(true);
+
+	const currentMenuIconBtn = currentMenuIconTemp.querySelector(".example__item-content-btn");
+	currentMenuIconBtn.classList.remove("example__item-content-btn");
+	currentMenuIconBtn.removeAttribute("data-type");
+
+	currentMenuIconTemp = currentMenuIconTemp.innerHTML.trim();
+	currentMenuIconTemp = currentMenuIconTemp.replace(/\t/g, "  ")
+
+	return currentMenuIconTemp;
+};
 
 const showsCodeForDemo = () => {
 	blockExampleItems.classList.add("example-items-active");
@@ -15,9 +35,21 @@ const showsCodeForDemo = () => {
 	const typeCode = event.currentTarget.dataset.typeCode;
 	const currentItem = event.currentTarget.closest(".example-item-active");
 
+	if ( currentItem.querySelector(`.code-${typeCode}`) ) {
+		currentItem.querySelector(`.code-${typeCode}`).remove();
+		blockExampleItems.classList.remove("example-items-active");
+
+		return;
+	};
+
+	const tempMenuIconBtn = createTempHtml_ForDemo(
+		retrievesTempPressedBtnOpenDemo(event.currentTarget),
+		typeCode
+	);
+
 	currentItem.insertAdjacentHTML("beforeend", `
-		${TABLE[typeCode]}
-	`);
+		${tempMenuIconBtn}
+	`.trim());
 };
 
 const closeCodeForDemo = (activeBlock) => {

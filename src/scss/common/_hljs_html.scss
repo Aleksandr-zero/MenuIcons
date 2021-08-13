@@ -1,0 +1,18 @@
+.language-html {
+
+	.hljs-tag {
+		color: $color-close_tag-code;
+
+		.hljs-name {
+			color: $color-tag-code;
+		}
+
+		.hljs-attr {
+			color: $color-attr-code;
+		}
+
+		.hljs-string {
+			color: $color-text-code;
+		}
+	}
+}
