@@ -25,6 +25,14 @@ const TEMP_CSS_DEMO = `
 </pre>
 `;
 
+export const TEMP_JS_DEMO = `
+<pre>
+	<code class="language-javascript">
+{{ demo-code }}
+	</code>
+</pre>
+`;
+
 
 export const TEMP_HTML = `
 	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_HTML_DEMO)}
@@ -32,4 +40,8 @@ export const TEMP_HTML = `
 
 export const TEMP_CSS = `
 	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_CSS_DEMO)}
+`;
+
+export const TEMP_JS = `
+	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_JS_DEMO)}
 `;

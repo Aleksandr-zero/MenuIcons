@@ -6,7 +6,9 @@ import {
 import {
 	createTempHtml_ForDemo,
 	retrievesTempPressedBtnOpenDemo,
-	createTempCss_ForDemo
+	createTempCss_ForDemo,
+	createTempJs_ForDemo,
+	checksFfBlockIsOutOfWindow
  } from "./createTemp.js";
 
 
@@ -52,6 +54,18 @@ const showsCodeForDemo = () => {
 		currentItem.insertAdjacentHTML("beforeend", `
 			${tempCssMenuIconBtn}
 		`.trim());
+
+	} else if ( typeCode === "js" ) {
+		const tempJsMenuIconBtn = createTempJs_ForDemo(
+			event.currentTarget,
+			typeCode
+		);
+
+		currentItem.insertAdjacentHTML("beforeend", `
+			${tempJsMenuIconBtn}
+		`.trim());
+
+		checksFfBlockIsOutOfWindow(currentItem.querySelector(".language-javascript"));
 	}
 
 	blockExampleItems.classList.add("example-items-active");

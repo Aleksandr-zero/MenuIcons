@@ -1,6 +1,7 @@
 import {
 	TEMP_HTML,
-	TEMP_CSS
+	TEMP_CSS,
+	TEMP_JS
 } from "./templates/temp.js";
 
 
@@ -9,7 +10,7 @@ export const ANIMATE = 0.2;
 export const TABLE = {
 	"html": `${TEMP_HTML}`,
 	"css": `${TEMP_CSS}`,
-	"js": ``,
+	"js": `${TEMP_JS}`,
 	"demo": ``,
 };
 
@@ -32,4 +33,12 @@ export const COMMON_CSS = `
 	position: absolute;
 	content: "";
 }
+`;
+
+export const COMMON_JS = `
+const menuBtn = document.querySelector(".{{ menu-btn-class }}");
+
+menuBtn.addEventListener("click", () => {
+	menuBtn.classList.toggle("{{ menu-btn-class }}--active");
+});
 `;
