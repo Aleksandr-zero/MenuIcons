@@ -3,7 +3,11 @@ import {
 	TABLE
 } from "./constants.js";
 
-import { createTempHtml_ForDemo } from "./createTemp.js";
+import {
+	createTempHtml_ForDemo,
+	retrievesTempPressedBtnOpenDemo,
+	createTempCss_ForDemo
+ } from "./createTemp.js";
 
 
 hljs.highlightAll();
@@ -14,24 +18,7 @@ const blockExampleItems = blockExample.querySelector(".example__items");
 const templateOpenMenu = document.querySelector(".open-menu-temp");
 
 
-const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
-	// Извлекает html (иконка для меню) при нажатии кнопки для показа кода.
-
-	let currentMenuIconTemp = pressedBtn.closest('.example-item-active').querySelector(".example__item-content-wrapper-btn").cloneNode(true);
-
-	const currentMenuIconBtn = currentMenuIconTemp.querySelector(".example__item-content-btn");
-	currentMenuIconBtn.classList.remove("example__item-content-btn");
-	currentMenuIconBtn.removeAttribute("data-type");
-
-	currentMenuIconTemp = currentMenuIconTemp.innerHTML.trim();
-	currentMenuIconTemp = currentMenuIconTemp.replace(/\t/g, "  ")
-
-	return currentMenuIconTemp;
-};
-
 const showsCodeForDemo = () => {
-	blockExampleItems.classList.add("example-items-active");
-
 	const typeCode = event.currentTarget.dataset.typeCode;
 	const currentItem = event.currentTarget.closest(".example-item-active");
 
@@ -42,14 +29,32 @@ const showsCodeForDemo = () => {
 		return;
 	};
 
-	const tempMenuIconBtn = createTempHtml_ForDemo(
-		retrievesTempPressedBtnOpenDemo(event.currentTarget),
-		typeCode
-	);
+	if ( currentItem.querySelector(".demo-code") ) {
+		currentItem.querySelector(`.demo-code`).remove();
+	};
 
-	currentItem.insertAdjacentHTML("beforeend", `
-		${tempMenuIconBtn}
-	`.trim());
+	if ( typeCode === "html" ) {
+		const tempHtmlMenuIconBtn = createTempHtml_ForDemo(
+			retrievesTempPressedBtnOpenDemo(event.currentTarget),
+			typeCode
+		);
+
+		currentItem.insertAdjacentHTML("beforeend", `
+			${tempHtmlMenuIconBtn}
+		`.trim());
+
+	} else if ( typeCode === "css" ) {
+		const tempCssMenuIconBtn = createTempCss_ForDemo(
+			event.currentTarget,
+			typeCode
+		);
+
+		currentItem.insertAdjacentHTML("beforeend", `
+			${tempCssMenuIconBtn}
+		`.trim());
+	}
+
+	blockExampleItems.classList.add("example-items-active");
 };
 
 const closeCodeForDemo = (activeBlock) => {

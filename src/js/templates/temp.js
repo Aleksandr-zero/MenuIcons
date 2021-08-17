@@ -1,5 +1,5 @@
 const commonTemp = `
-<div class="demo-code code-html">
+<div class="demo-code {{ code-type }}">
 	<div class="demo-code__container">
 		<div class="demo-code__content">
 			{{ demo-code-type }}
@@ -17,6 +17,19 @@ const TEMP_HTML_DEMO = `
 </pre>
 `;
 
+const TEMP_CSS_DEMO = `
+<pre>
+	<code class="language-css">
+{{ demo-code }}
+	</code>
+</pre>
+`;
+
+
 export const TEMP_HTML = `
 	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_HTML_DEMO)}
+`;
+
+export const TEMP_CSS = `
+	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_CSS_DEMO)}
 `;
