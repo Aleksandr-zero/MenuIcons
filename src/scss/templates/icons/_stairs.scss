@@ -1,0 +1,34 @@
+.btn-menu-stairs {
+	padding: 17px 5px;
+	width: 66px;
+
+	span {
+		position: relative;
+		display: block;
+		width: 33px;
+		height: 5px;
+		border-radius: 4px;
+		background-color: $primary-color-3;
+		margin: 0 auto;
+
+		&::before,
+		&::after {
+			position: absolute;
+			content: "";
+			width: 33px;
+			height: 5px;
+			border-radius: 4px;
+			background-color: $primary-color-3;
+		}
+
+		&::before {
+			top: -12px;
+			left: 10px;
+		}
+
+		&::after {
+			bottom: -12px;
+			left: -10px;
+		}
+	}
+}

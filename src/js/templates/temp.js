@@ -33,6 +33,10 @@ export const TEMP_JS_DEMO = `
 </pre>
 `;
 
+export const TEMP_BTNS_DEMO = `
+
+`;
+
 
 export const TEMP_HTML = `
 	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_HTML_DEMO)}
@@ -44,4 +48,8 @@ export const TEMP_CSS = `
 
 export const TEMP_JS = `
 	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_JS_DEMO)}
+`;
+
+export const TEMP_DEMO = `
+	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_BTNS_DEMO)}
 `;

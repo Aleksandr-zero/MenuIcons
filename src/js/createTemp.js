@@ -40,9 +40,7 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
 
-	let readyCss = COMMON_CSS.replace(/{{ name-btn }}/g, nameBtn);
-	readyCss = readyCss.replace(/\t/g, "  ");
-	readyCss = hljs.highlight(readyCss, { language: 'css' }).value;
+	let readyCss = buildReadyTemp_Hljs(COMMON_CSS, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "css");
 
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ demo-code }}/, readyCss);
 
@@ -56,9 +54,7 @@ export const createTempJs_ForDemo = (tempBtn, typeTempCode) => {
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
 
-	let readyJs = COMMON_JS.replace(/{{ menu-btn-class }}/g, nameBtn);
-	readyJs = readyJs.replace(/\t/g, "  ");
-	readyJs = hljs.highlight(readyJs, { language: 'javascript' }).value;
+	let readyJs = buildReadyTemp_Hljs(COMMON_JS, [/{{ menu-btn-class }}/g, /\t/g], [nameBtn, "  "], "javascript");
 
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ demo-code }}/, readyJs);
 
@@ -66,16 +62,29 @@ export const createTempJs_ForDemo = (tempBtn, typeTempCode) => {
 };
 
 
+export const createTempDemo_ForDemo = (tempBtn, typeTempCode) => {
+
+};
+
+
+function buildReadyTemp_Hljs(baseTemp, regArr, regReplaceArr, languageHljs) {
+	let readyTemp = baseTemp.replace(regArr[0], regReplaceArr[0]);
+	readyTemp = readyTemp.replace(regArr[1], regReplaceArr[1]);
+	readyTemp = hljs.highlight(readyTemp, { language: languageHljs }).value;
+
+	return readyTemp;
+};
+
 export function checksFfBlockIsOutOfWindow(block) {
 	const widthWindow = window.innerWidth;
 	const widtnBody = document.querySelector("body").clientWidth
-	const widthWindow_Scroll = document.documentElement.scrollWidth;
-	const widthWindow_Browser = widthWindow_Scroll - (widthWindow_Scroll - widtnBody);
+	const widthWindow_WithScroll = document.documentElement.scrollWidth;
+	const widthWindow_Browser = widthWindow_WithScroll - (widthWindow_WithScroll - widtnBody);
 
 	const styleBlock = block.getBoundingClientRect();
 
 	if ( styleBlock.x + styleBlock.width >= widthWindow_Browser ) {
-		const positionLeft_ToExitWindow = (widthWindow_Scroll - widthWindow) + widthWindow - widtnBody;
+		const positionLeft_ToExitWindow = (widthWindow_WithScroll - widthWindow) + widthWindow - widtnBody;
 
 		block.closest(".demo-code").style.left = `-${positionLeft_ToExitWindow + 50}px`;
 	};

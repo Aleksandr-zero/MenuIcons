@@ -1,7 +1,8 @@
 import {
 	TEMP_HTML,
 	TEMP_CSS,
-	TEMP_JS
+	TEMP_JS,
+	TEMP_DEMO
 } from "./templates/temp.js";
 
 
@@ -11,7 +12,7 @@ export const TABLE = {
 	"html": `${TEMP_HTML}`,
 	"css": `${TEMP_CSS}`,
 	"js": `${TEMP_JS}`,
-	"demo": ``,
+	"demo": `${TEMP_DEMO}`,
 };
 
 
@@ -29,7 +30,8 @@ export const COMMON_CSS = `
 	background-color: #fefefe;
 }
 
-.{{ name-btn }} span::before {
+.{{ name-btn }} span::before,
+.{{ name-btn }} span::after {
 	position: absolute;
 	content: "";
 }
