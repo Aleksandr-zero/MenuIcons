@@ -7,10 +7,51 @@
 	position: relative;
 
 	&__container {
+		position: relative;
 
-	}
+		&-back-btn {
+			position: absolute;
+			right: 0;
+			top: 0;
 
-	&__content {
+			&-wrapper {
+				position: relative;
+			}
 
+			&-title {
+				position: absolute;
+				top: -32px;
+				left: 50%;
+				transform: translateX(-50%);
+
+				font-size: 12px;
+
+				padding: 4px 8px;
+				border-radius: 4px;
+				background-color: $primary-color-5;
+
+				opacity: 0;
+				visibility: hidden;
+
+				transition: opacity $animate ease;
+			}
+
+			&:hover {
+				.demo-code__container-back-btn-title {
+					opacity: 1;
+					visibility: visible;
+				}
+
+				.demo-code__container-btn-copy {
+					background-color: $primary-color-5;
+				}
+			}
+		}
+
+		&-btn-copy {
+			padding: 4px;
+			transition: background-color $animate ease;
+			border-radius: 4px;
+		}
 	}
 }

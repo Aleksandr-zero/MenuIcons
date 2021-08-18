@@ -9,8 +9,10 @@ import {
 	createTempCss_ForDemo,
 	createTempJs_ForDemo,
 	createTempDemo_ForDemo,
-	checksFfBlockIsOutOfWindow
+	checksIfBlockIsOutOfWindow
 } from "./createTemp.js";
+
+import { addEvent_CopyText } from "./handlerCopy.js";
 
 
 hljs.highlightAll();
@@ -61,13 +63,13 @@ const showsCodeForDemo = () => {
 
 	} else if ( typeCode === "js" ) {
 		createBaseTemp(createTempJs_ForDemo, event.currentTarget, typeCode, currentItem);
-		checksFfBlockIsOutOfWindow(currentItem.querySelector(".language-javascript"));
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-javascript"));
 
 	} else if ( typeCode === "demo" ) {
-		copyToClipboard(".btn-menu-strawberry > span")
 		console.log(true);
 	}
 
+	addEvent_CopyText(currentItem.querySelector(".demo-code__container-btn-copy"));
 	blockExampleItems.classList.add("example-items-active");
 };
 
@@ -139,24 +141,3 @@ exampleItems.forEach((item) => {
 
 	btn.addEventListener("click", changeMenuDemo);
 });
-
-
-function copyToClipboard(elementId) {
-
-	const aux = document.createElement("input");
-
-  	// Assign it the value of the specified element
-  	aux.setAttribute("value", document.querySelector(elementId).innerHTML);
-
-  	// Append it to the body
-  	document.body.appendChild(aux);
-
- 	 // Highlight its content
-  	aux.select();
-
-  	// Copy the highlighted text
-  	document.execCommand("copy");
-
-  	// Remove it from the body
-  	document.body.removeChild(aux);
-};

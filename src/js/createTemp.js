@@ -75,7 +75,7 @@ function buildReadyTemp_Hljs(baseTemp, regArr, regReplaceArr, languageHljs) {
 	return readyTemp;
 };
 
-export function checksFfBlockIsOutOfWindow(block) {
+export function checksIfBlockIsOutOfWindow(block) {
 	const widthWindow = window.innerWidth;
 	const widtnBody = document.querySelector("body").clientWidth
 	const widthWindow_WithScroll = document.documentElement.scrollWidth;
