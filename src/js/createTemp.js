@@ -2,6 +2,7 @@ import {
 	ANIMATE,
 	TABLE,
 	COMMON_CSS,
+	GET_REQUESTED_CSS,
 	COMMON_JS
 } from "./constants.js";
 
@@ -34,13 +35,25 @@ export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 };
 
 
+const buildCss_FromTemp = (temp, foundCss) => {
+	const blankCss = temp.replace(/{{ padding-value }}/, `${foundCss.padding}`);
+
+	return blankCss;
+};
+
 export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 	const nameBtn = tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn").classList[1];
+
+	const foundCss = pullsStylesBtn(
+		tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn")
+	);
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
 
-	let readyCss = buildReadyTemp_Hljs(COMMON_CSS, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "css");
+	const blankCss = buildCss_FromTemp(COMMON_CSS, foundCss);
+
+	let readyCss = buildReadyTemp_Hljs(blankCss, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "css");
 
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ demo-code }}/, readyCss);
 
@@ -88,4 +101,18 @@ export function checksIfBlockIsOutOfWindow(block) {
 
 		block.closest(".demo-code").style.left = `-${positionLeft_ToExitWindow + 50}px`;
 	};
+};
+
+
+function pullsStylesBtn(btn) {
+	/* Находит все стили кнопки (по обьекту "GET_REQUESTED_CSS") и возвращает обьект.  */
+
+	const foundCss = {
+		"before": {},
+		"after": {}
+	};
+
+	foundCss["padding"] = getComputedStyle(btn).getPropertyValue("padding");
+
+	return foundCss;
 };

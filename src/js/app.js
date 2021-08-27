@@ -27,11 +27,12 @@ function createBaseTemp(createFun, tempBtn, typeCode, currentItem) {
 	const tempMenuIconBtn = createFun(
 		tempBtn,
 		typeCode
-		);
+	);
 
 	currentItem.insertAdjacentHTML("beforeend", `
 		${tempMenuIconBtn}
-		`.trim());
+		`.trim()
+	);
 };
 
 
@@ -56,7 +57,7 @@ const showsCodeForDemo = () => {
 			retrievesTempPressedBtnOpenDemo(event.currentTarget),
 			typeCode,
 			currentItem
-			);
+		);
 
 	} else if ( typeCode === "css" ) {
 		createBaseTemp(createTempCss_ForDemo, event.currentTarget, typeCode, currentItem);
@@ -67,7 +68,7 @@ const showsCodeForDemo = () => {
 
 	} else if ( typeCode === "demo" ) {
 		console.log(true);
-	}
+	};
 
 	addEvent_CopyText(currentItem.querySelector(".demo-code__container-btn-copy"));
 	blockExampleItems.classList.add("example-items-active");

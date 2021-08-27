@@ -18,7 +18,7 @@ export const TABLE = {
 
 export const COMMON_CSS = `
 .{{ name-btn }} {
-	padding: 17px 5px;
+	padding: {{ padding-value }};
 }
 
 .{{ name-btn }} span {
@@ -36,6 +36,10 @@ export const COMMON_CSS = `
 	content: "";
 }
 `;
+
+export const GET_REQUESTED_CSS = {
+
+};
 
 export const COMMON_JS = `
 const menuBtn = document.querySelector(".{{ menu-btn-class }}");
