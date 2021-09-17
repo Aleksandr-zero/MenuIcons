@@ -36,7 +36,7 @@ function createBaseTemp(createFun, tempBtn, typeCode, currentItem) {
 };
 
 
-const showsCodeForDemo = () => {
+const showsCodeForDemo = (event) => {
 	const typeCode = event.currentTarget.dataset.typeCode;
 	const currentItem = event.currentTarget.closest(".example-item-active");
 

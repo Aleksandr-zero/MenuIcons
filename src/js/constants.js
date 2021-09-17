@@ -18,14 +18,14 @@ export const TABLE = {
 
 export const COMMON_CSS = `
 .{{ name-btn }} {
-	padding: {{ padding-value }};
+	padding: {{ padding-value-main }};
 }
 
 .{{ name-btn }} span {
 	position: relative;
 	display: block;
-	width: 44px;
-	height: 5px;
+	width: {{ width-value-span }};
+	height: {{ height-value-span }};
 	border-radius: 4px;
 	background-color: #fefefe;
 }
@@ -35,10 +35,28 @@ export const COMMON_CSS = `
 	position: absolute;
 	content: "";
 }
+
+.{{ name-btn }} span::before {
+	top: {{ span-before-top }};
+}
+
+.{{ name-btn }} span::after {
+	bottom: {{ span-after-bottom }};
+}
 `;
 
 export const GET_REQUESTED_CSS = {
-
+	padding: "padding",
+	span: {
+		"width": "width",
+		"height": "height"
+	},
+	span_before: {
+		"top": "top"
+	},
+	span_after: {
+		"bottom": "bottom"
+	},
 };
 
 export const COMMON_JS = `

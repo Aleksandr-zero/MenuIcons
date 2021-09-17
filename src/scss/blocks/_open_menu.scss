@@ -2,18 +2,19 @@
 	max-width: 75%;
 	width: 100%;
 
-	transition: all $animate * 1.2 ease-out;
+	transition: all $animate * 1.5 ease-out;
 
 	&.open-menu-disable {
 		visibility: hidden;
 		opacity: 0;
-		width: 50%;
+		width: 30%;
 	}
 
 	&.open-menu-active {
 		visibility: visible;
 		opacity: 1;
 		width: 100%;
+		margin-left: 14px;
 	}
 
 	&__content {

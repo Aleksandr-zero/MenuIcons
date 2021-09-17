@@ -7,6 +7,11 @@ import {
 } from "./constants.js";
 
 
+const stylesToBeRemoved = {
+
+};
+
+
 export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
 	// Создание шаблона для демонстрации кода.
 
@@ -36,7 +41,13 @@ export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 
 
 const buildCss_FromTemp = (temp, foundCss) => {
-	const blankCss = temp.replace(/{{ padding-value }}/, `${foundCss.padding}`);
+	let blankCss = temp.replace(/{{ padding-value-main }}/, `${foundCss.padding}`);
+
+	blankCss = blankCss.replace(/{{ width-value-span }}/, `${foundCss.span.width}`);
+	blankCss = blankCss.replace(/{{ height-value-span }}/, `${foundCss.span.height}`);
+
+	blankCss = blankCss.replace(/{{ span-before-top }}/, `${foundCss.span_before.top}`);
+	blankCss = blankCss.replace(/{{ span-after-bottom }}/, `${foundCss.span_after.bottom}`);
 
 	return blankCss;
 };
@@ -51,7 +62,8 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
 
-	const blankCss = buildCss_FromTemp(COMMON_CSS, foundCss);
+	let blankCss = buildCss_FromTemp(COMMON_CSS, foundCss);
+	blankCss = cleaningCss(blankCss);
 
 	let readyCss = buildReadyTemp_Hljs(blankCss, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "css");
 
@@ -104,15 +116,67 @@ export function checksIfBlockIsOutOfWindow(block) {
 };
 
 
-function pullsStylesBtn(btn) {
-	/* Находит все стили кнопки (по обьекту "GET_REQUESTED_CSS") и возвращает обьект.  */
+const pullsStylesBtn_Span_PseudoElements = (el) => {
+	/* Находит стили псевдо-элементов у элемента span  */
 
 	const foundCss = {
 		"before": {},
 		"after": {}
 	};
-
-	foundCss["padding"] = getComputedStyle(btn).getPropertyValue("padding");
+	
+	foundCss["before"]["top"] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before.top);
+	foundCss["after"]["bottom"] = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after.bottom);
 
 	return foundCss;
+};
+
+const pullsStylesBtn_Span = (el) => {
+	/* Находит стили у элемента span  */
+
+	const foundCss = {};
+
+	foundCss[GET_REQUESTED_CSS.span.width] = getComputedStyle(el).getPropertyValue(GET_REQUESTED_CSS.span.width);
+	foundCss[GET_REQUESTED_CSS.span.height] = getComputedStyle(el).getPropertyValue(GET_REQUESTED_CSS.span.height);
+
+	if ( parseInt(getComputedStyle(el).getPropertyValue(GET_REQUESTED_CSS.span.height)) <= 0 ) {
+		stylesToBeRemoved["height"] = true;
+	};
+
+	return foundCss;
+};
+
+function pullsStylesBtn(btn) {
+	/* Находит все стили кнопки (по обьекту "GET_REQUESTED_CSS") и возвращает обьект.  */
+
+	const foundCss = {
+		"span": {},
+		"span_before": {},
+		"span_after": {}
+	};
+
+	const span = btn.querySelector("span");
+	const cssSpanPseudoElements = pullsStylesBtn_Span_PseudoElements(span);
+
+	foundCss[GET_REQUESTED_CSS.padding] = getComputedStyle(btn).getPropertyValue(GET_REQUESTED_CSS.padding);
+	foundCss["span"] = pullsStylesBtn_Span(span);
+	foundCss["span_before"] = cssSpanPseudoElements.before;
+	foundCss["span_after"] = cssSpanPseudoElements.after;
+
+	return foundCss;
+};
+
+
+function cleaningCss(blankCss) {
+	const propertyCss = Object.keys(stylesToBeRemoved);
+
+	propertyCss.forEach((property) => {
+
+		if ( stylesToBeRemoved[property] ) {
+			blankCss = blankCss.replace(`\t${property}: 0px;\n`, "");
+		};
+
+		delete stylesToBeRemoved[property];
+	});
+
+	return blankCss;
 };
