@@ -3,6 +3,7 @@ import {
 	TABLE,
 	COMMON_CSS,
 	GET_REQUESTED_CSS,
+	SAME_VALUES_PROPERTIES,
 	COMMON_JS
 } from "./constants.js";
 
@@ -163,13 +164,15 @@ const pullsStylesBtn_Span = (el) => {
 		stylesToBeRemoved["height"] = true;
 	};
 
+
+
 	return foundCss;
 };
 
 function pullsStylesBtn(btn) {
 	/* Находит все стили кнопки (по обьекту "GET_REQUESTED_CSS") и возвращает обьект.  */
 
-	const foundCss = {
+	let foundCss = {
 		"span": {},
 		"before_after": {},
 		"span_before": {},
@@ -184,6 +187,29 @@ function pullsStylesBtn(btn) {
 	foundCss["span_before"] = cssSpanPseudoElements.before;
 	foundCss["span_after"] = cssSpanPseudoElements.after;
 	foundCss["before_after"] = cssSpanPseudoElements.before_after;
+
+	foundCss = checkSameValuesForProperties(foundCss);
+
+	return foundCss;
+};
+
+
+function checkSameValuesForProperties(foundCss) {
+	const propertiesSpan = Object.keys(foundCss.span);
+
+	for ( const property in foundCss.before_after ) {
+		if ( SAME_VALUES_PROPERTIES.includes(property) ) {
+			const propertyValue_span = parseFloat(foundCss.span[property]);
+			const propertyValue_pseudo = parseFloat(foundCss.before_after[property]);
+
+			if ( propertyValue_span === propertyValue_pseudo ) {
+				foundCss.before_after[property] = "100%";
+			} else {
+				const percent = Math.round(propertyValue_pseudo / (propertyValue_span / 100));
+				foundCss.before_after[property] = `${percent}%`;
+			};
+		};
+	};
 
 	return foundCss;
 };

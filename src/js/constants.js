@@ -58,6 +58,11 @@ export const COMMON_CSS = `
 }
 `;
 
+export const SAME_VALUES_PROPERTIES = [
+	"width",
+	"height"
+];
+
 export const GET_REQUESTED_CSS = {
 	padding: "padding",
 	span: {
