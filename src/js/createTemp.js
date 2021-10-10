@@ -34,20 +34,31 @@ export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 	currentMenuIconBtn.removeAttribute("data-type");
 
 	currentMenuIconTemp = currentMenuIconTemp.innerHTML.trim();
-	currentMenuIconTemp = currentMenuIconTemp.replace(/\t/g, "  ")
+
+	currentMenuIconTemp = currentMenuIconTemp.replace(/<span>/g, "\n  <span>");
+	currentMenuIconTemp = currentMenuIconTemp.replace(`</span>`, "</span>\n");
 
 	return currentMenuIconTemp;
 };
 
 
-const buildCss_FromTemp = (temp, foundCss) => {
+const buildCss_FromTemp = ( temp, foundCss ) => {
 	let blankCss = temp.replace(/{{ padding-value-main }}/, `${foundCss.padding}`);
 
 	blankCss = blankCss.replace(/{{ width-value-span }}/, `${foundCss.span.width}`);
 	blankCss = blankCss.replace(/{{ height-value-span }}/, `${foundCss.span.height}`);
 
 	blankCss = blankCss.replace(/{{ span-before-top }}/, `${foundCss.span_before.top}`);
+	blankCss = blankCss.replace(/{{ span-before-left }}/, `${foundCss.span_before.left}`);
+	blankCss = blankCss.replace(/{{ span-before-transform }}/, `${foundCss.span_before.transform}`);
 	blankCss = blankCss.replace(/{{ span-after-bottom }}/, `${foundCss.span_after.bottom}`);
+	blankCss = blankCss.replace(/{{ span-after-left }}/, `${foundCss.span_after.left}`);
+	blankCss = blankCss.replace(/{{ span-after-left }}/, `${foundCss.span_after.left}`);
+	blankCss = blankCss.replace(/{{ span-after-transform }}/, `${foundCss.span_after.transform}`);
+
+	blankCss = blankCss.replace(/{{ span-bef-af-width }}/, `${foundCss.before_after.width}`);
+	blankCss = blankCss.replace(/{{ span-bef-af-height }}/, `${foundCss.before_after.height}`);
+	blankCss = blankCss.replace(/{{ span-bef-af-back-color }}/, `${foundCss.before_after["background-color"]}`);
 
 	return blankCss;
 };
@@ -120,12 +131,22 @@ const pullsStylesBtn_Span_PseudoElements = (el) => {
 	/* Находит стили псевдо-элементов у элемента span  */
 
 	const foundCss = {
+		"before_after": {},
 		"before": {},
 		"after": {}
 	};
-	
-	foundCss["before"]["top"] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before.top);
-	foundCss["after"]["bottom"] = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after.bottom);
+
+	for ( const property in GET_REQUESTED_CSS.span_before ) {
+		foundCss["before"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before[property]);
+	};
+
+	for ( const property in GET_REQUESTED_CSS.span_after ) {
+		foundCss["after"][property] = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after[property]);
+	};
+
+	for ( const property in GET_REQUESTED_CSS.span_bef_af ) {
+		foundCss["before_after"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_bef_af[property]);
+	};
 
 	return foundCss;
 };
@@ -150,6 +171,7 @@ function pullsStylesBtn(btn) {
 
 	const foundCss = {
 		"span": {},
+		"before_after": {},
 		"span_before": {},
 		"span_after": {}
 	};
@@ -161,6 +183,7 @@ function pullsStylesBtn(btn) {
 	foundCss["span"] = pullsStylesBtn_Span(span);
 	foundCss["span_before"] = cssSpanPseudoElements.before;
 	foundCss["span_after"] = cssSpanPseudoElements.after;
+	foundCss["before_after"] = cssSpanPseudoElements.before_after;
 
 	return foundCss;
 };

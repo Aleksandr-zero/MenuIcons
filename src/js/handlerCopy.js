@@ -6,7 +6,7 @@ const changeTitleBtnCopy = (title, newText, lastText) => {
 	}, 1500);
 };
 
-const copyToClipboard = () => {
+const copyToClipboard = (event) => {
 	const codeBlock = event.currentTarget.closest(`.demo-code__container`).querySelector(".language");
 	const titleBtn = event.currentTarget.closest(".demo-code__container-back-btn-wrapper").querySelector("h4");
 

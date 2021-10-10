@@ -4,3 +4,5 @@
 .vscode
 .idea
 *.sublime*
+
+src/test.html
