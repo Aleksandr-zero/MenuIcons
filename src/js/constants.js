@@ -87,6 +87,24 @@ export const GET_REQUESTED_CSS = {
 	},
 };
 
+export const REPLACEMENTS_CSS = {
+	"{{ padding-value-main }}": "padding",
+	"{{ width-value-span }}": "span.width",
+	"{{ height-value-span }}": "span.height",
+
+	"{{ span-before-top }}": "span_before.top",
+	"{{ span-before-left }}": "span_before.left",
+	"{{ span-before-transform }}": "span_before.transform",
+
+	"{{ span-after-bottom }}": "span_after.bottom",
+	"{{ span-after-left }}": "span_after.left",
+	"{{ span-after-transform }}": "span_after.transform",
+
+	"{{ span-bef-af-width }}": "before_after.width",
+	"{{ span-bef-af-height }}": "before_after.height",
+	"{{ span-bef-af-back-color }}": "before_after.backgroundColor",
+};
+
 export const COMMON_JS = `
 const menuBtn = document.querySelector(".{{ menu-btn-class }}");
 

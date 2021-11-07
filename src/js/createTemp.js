@@ -4,6 +4,7 @@ import {
 	COMMON_CSS,
 	GET_REQUESTED_CSS,
 	SAME_VALUES_PROPERTIES,
+	REPLACEMENTS_CSS,
 	COMMON_JS
 } from "./constants.js";
 
@@ -44,24 +45,21 @@ export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 
 
 const buildCss_FromTemp = ( temp, foundCss ) => {
-	let blankCss = temp.replace(/{{ padding-value-main }}/, `${foundCss.padding}`);
+	const keysReplacementsCSS = Object.keys(REPLACEMENTS_CSS);
+	keysReplacementsCSS.forEach((keyReplaceCSS) => {
+		let property = foundCss;
 
-	blankCss = blankCss.replace(/{{ width-value-span }}/, `${foundCss.span.width}`);
-	blankCss = blankCss.replace(/{{ height-value-span }}/, `${foundCss.span.height}`);
+		const pathToProperty = REPLACEMENTS_CSS[keyReplaceCSS];
+		const partsPathToProperty = pathToProperty.split(".");
 
-	blankCss = blankCss.replace(/{{ span-before-top }}/, `${foundCss.span_before.top}`);
-	blankCss = blankCss.replace(/{{ span-before-left }}/, `${foundCss.span_before.left}`);
-	blankCss = blankCss.replace(/{{ span-before-transform }}/, `${foundCss.span_before.transform}`);
-	blankCss = blankCss.replace(/{{ span-after-bottom }}/, `${foundCss.span_after.bottom}`);
-	blankCss = blankCss.replace(/{{ span-after-left }}/, `${foundCss.span_after.left}`);
-	blankCss = blankCss.replace(/{{ span-after-left }}/, `${foundCss.span_after.left}`);
-	blankCss = blankCss.replace(/{{ span-after-transform }}/, `${foundCss.span_after.transform}`);
+		partsPathToProperty.forEach((partPath, index) => {
+			property = property[partPath];
+		});
 
-	blankCss = blankCss.replace(/{{ span-bef-af-width }}/, `${foundCss.before_after.width}`);
-	blankCss = blankCss.replace(/{{ span-bef-af-height }}/, `${foundCss.before_after.height}`);
-	blankCss = blankCss.replace(/{{ span-bef-af-back-color }}/, `${foundCss.before_after["background-color"]}`);
+		temp = temp.replace(keyReplaceCSS.trim(), property);
+	});
 
-	return blankCss;
+	return temp;
 };
 
 export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
@@ -137,16 +135,22 @@ const pullsStylesBtn_Span_PseudoElements = (el) => {
 		"after": {}
 	};
 
-	for ( const property in GET_REQUESTED_CSS.span_before ) {
-		foundCss["before"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before[property]);
+	for ( let property in GET_REQUESTED_CSS.span_before ) {
+		const foundProperty = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before[property]);
+		property = removesHyphenFromProperty(property);
+		foundCss["before"][property] = foundProperty
 	};
 
-	for ( const property in GET_REQUESTED_CSS.span_after ) {
-		foundCss["after"][property] = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after[property]);
+	for ( let property in GET_REQUESTED_CSS.span_after ) {
+		const foundProperty = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after[property]);
+		property = removesHyphenFromProperty(property);
+		foundCss["after"][property] = foundProperty
 	};
 
-	for ( const property in GET_REQUESTED_CSS.span_bef_af ) {
-		foundCss["before_after"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_bef_af[property]);
+	for ( let property in GET_REQUESTED_CSS.span_bef_af ) {
+		const foundProperty = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_bef_af[property]);
+		property = removesHyphenFromProperty(property);
+		foundCss["before_after"][property] = foundProperty;
 	};
 
 	return foundCss;
@@ -164,9 +168,18 @@ const pullsStylesBtn_Span = (el) => {
 		stylesToBeRemoved["height"] = true;
 	};
 
-
-
 	return foundCss;
+};
+
+const removesHyphenFromProperty = (property) => {
+	const removableStr = property.match(new RegExp(/-[a-z]/));
+	if ( removableStr ) {
+		const str = removableStr[0];
+
+		property = property.replace(str, str[str.length - 1].toUpperCase());
+	};
+
+	return property;
 };
 
 function pullsStylesBtn(btn) {
@@ -206,6 +219,11 @@ function checkSameValuesForProperties(foundCss) {
 				foundCss.before_after[property] = "100%";
 			} else {
 				const percent = Math.round(propertyValue_pseudo / (propertyValue_span / 100));
+
+				if ( !isFinite(percent) ) {
+					continue;
+				};
+
 				foundCss.before_after[property] = `${percent}%`;
 			};
 		};
