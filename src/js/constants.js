@@ -43,6 +43,7 @@ export const COMMON_CSS = `
 	width: {{ span-bef-af-width }};
 	height: {{ span-bef-af-height }};
 	background-color: {{ span-bef-af-back-color }};
+	border-radius: 4px;
 }
 
 .{{ name-btn }} span::before {
@@ -60,7 +61,11 @@ export const COMMON_CSS = `
 
 export const SAME_VALUES_PROPERTIES = [
 	"width",
-	"height"
+	"height",
+];
+
+export const REMOVED_PROPERTY = [
+	"transform",
 ];
 
 export const GET_REQUESTED_CSS = {
@@ -73,7 +78,7 @@ export const GET_REQUESTED_CSS = {
 		"width": "width",
 		"height": "height",
 		"left": "left",
-		"background-color": "background-color"
+		"backgroundColor": "background-color"
 	},
 	span_before: {
 		"top": "top",

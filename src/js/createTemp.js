@@ -4,9 +4,12 @@ import {
 	COMMON_CSS,
 	GET_REQUESTED_CSS,
 	SAME_VALUES_PROPERTIES,
+	REMOVED_PROPERTY,
 	REPLACEMENTS_CSS,
 	COMMON_JS
 } from "./constants.js";
+
+import { matrixTransformation } from "./matrixTransformation.js";
 
 
 const stylesToBeRemoved = {
@@ -67,7 +70,7 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 
 	const foundCss = pullsStylesBtn(
 		tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn")
-	);
+		);
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
@@ -136,21 +139,23 @@ const pullsStylesBtn_Span_PseudoElements = (el) => {
 	};
 
 	for ( let property in GET_REQUESTED_CSS.span_before ) {
-		const foundProperty = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before[property]);
-		property = removesHyphenFromProperty(property);
-		foundCss["before"][property] = foundProperty
+		foundCss["before"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before[property]);
+
+		if ( property === "transform" && foundCss["before"]["transform"] !== "none" ) {
+			foundCss["before"]["transform"] = matrixTransformation(foundCss["before"]["transform"]);
+		};
 	};
 
 	for ( let property in GET_REQUESTED_CSS.span_after ) {
-		const foundProperty = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after[property]);
-		property = removesHyphenFromProperty(property);
-		foundCss["after"][property] = foundProperty
+		foundCss["after"][property] = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after[property]);
+
+		if ( property === "transform" && foundCss["after"]["transform"] !== "none" ) {
+			foundCss["after"]["transform"] = matrixTransformation(foundCss["after"]["transform"]);
+		};
 	};
 
 	for ( let property in GET_REQUESTED_CSS.span_bef_af ) {
-		const foundProperty = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_bef_af[property]);
-		property = removesHyphenFromProperty(property);
-		foundCss["before_after"][property] = foundProperty;
+		foundCss["before_after"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_bef_af[property]);
 	};
 
 	return foundCss;
@@ -169,17 +174,6 @@ const pullsStylesBtn_Span = (el) => {
 	};
 
 	return foundCss;
-};
-
-const removesHyphenFromProperty = (property) => {
-	const removableStr = property.match(new RegExp(/-[a-z]/));
-	if ( removableStr ) {
-		const str = removableStr[0];
-
-		property = property.replace(str, str[str.length - 1].toUpperCase());
-	};
-
-	return property;
 };
 
 function pullsStylesBtn(btn) {
@@ -202,6 +196,7 @@ function pullsStylesBtn(btn) {
 	foundCss["before_after"] = cssSpanPseudoElements.before_after;
 
 	foundCss = checkSameValuesForProperties(foundCss);
+	foundCss = removesEmptyProperties(foundCss);
 
 	return foundCss;
 };
@@ -232,14 +227,30 @@ function checkSameValuesForProperties(foundCss) {
 	return foundCss;
 };
 
+function removesEmptyProperties(foundCss) {
+
+	const checkProperty = (obj) => {
+		for ( const property in obj ) {
+			if ( REMOVED_PROPERTY.includes(property) && obj[property] === "none" ) {
+				delete obj[property];
+				stylesToBeRemoved["transform"] = true;
+			};
+		};
+	};
+
+	checkProperty(foundCss.span_after);
+	checkProperty(foundCss.span_before);
+
+	return foundCss;
+};
 
 function cleaningCss(blankCss) {
 	const propertyCss = Object.keys(stylesToBeRemoved);
 
 	propertyCss.forEach((property) => {
-
 		if ( stylesToBeRemoved[property] ) {
-			blankCss = blankCss.replace(`\t${property}: 0px;\n`, "");
+			blankCss = blankCss.replaceAll(`\t${property}: 0px;\n`, "");
+			blankCss = blankCss.replaceAll(`\t${property}: undefined;\n`, "");
 		};
 
 		delete stylesToBeRemoved[property];
