@@ -31,7 +31,7 @@ export function matrixTransformation(matrix) {
 		} else if ( index === 4 ) {
 			normalTransform = `${indexProperties[index]}(${val}px)`;
 		} else if ( index === 5 ) {
-			normalTransform = `${indexProperties[index]}(${val}px)`;
+
 		};
 	});
 

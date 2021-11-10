@@ -9,6 +9,7 @@ import {
 	createTempCss_ForDemo,
 	createTempJs_ForDemo,
 	createTempDemo_ForDemo,
+	addEventBtns_ForDemoTemp,
 	checksIfBlockIsOutOfWindow
 } from "./createTemp.js";
 
@@ -58,19 +59,36 @@ const showsCodeForDemo = (event) => {
 			typeCode,
 			currentItem
 		);
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-html"));
 
 	} else if ( typeCode === "css" ) {
 		createBaseTemp(createTempCss_ForDemo, event.currentTarget, typeCode, currentItem);
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-css"));
 
 	} else if ( typeCode === "js" ) {
 		createBaseTemp(createTempJs_ForDemo, event.currentTarget, typeCode, currentItem);
 		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-javascript"));
 
 	} else if ( typeCode === "demo" ) {
-		console.log(true);
+		const currentBtn = event.currentTarget.closest(".example__item").querySelector(".example__item-content-btn");
+		const tempDemoHtml = createTempDemo_ForDemo(TABLE[typeCode], currentBtn.classList[1]);
+
+		currentItem.insertAdjacentHTML("beforeend", `
+			${tempDemoHtml}
+			`.trim()
+		);
+
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".demo-code--classes"));
+		addEventBtns_ForDemoTemp(
+			currentItem.querySelectorAll(".demo-code__content-item-btn"),
+			currentBtn
+		);
 	};
 
-	addEvent_CopyText(currentItem.querySelector(".demo-code__container-btn-copy"));
+	if ( typeCode !== "demo" ) {
+		addEvent_CopyText(currentItem.querySelector(".demo-code__container-btn-copy"));
+	};
+
 	blockExampleItems.classList.add("example-items-active");
 };
 

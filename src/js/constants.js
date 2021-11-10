@@ -34,6 +34,7 @@ export const COMMON_CSS = `
 	background-color: rgb(254, 254, 254);
 	font-size: 0;
 	color: transparent;
+	transition: all 0.2s ease;
 }
 
 .{{ name-btn }} span::before,
@@ -44,6 +45,7 @@ export const COMMON_CSS = `
 	height: {{ span-bef-af-height }};
 	background-color: {{ span-bef-af-back-color }};
 	border-radius: 4px;
+	transition: all 0.2s ease;
 }
 
 .{{ name-btn }} span::before {
@@ -90,6 +92,22 @@ export const GET_REQUESTED_CSS = {
 		"left": "left",
 		"transform": "transform"
 	},
+};
+
+export const ACTIVE_CLASSES_BUTTON = {
+	"btn-menu-hamburger": 2,
+	"btn-menu-veggie_burger": 2,
+	"btn-menu-hotdog": 2,
+	"btn-menu-fries": 1,
+	"btn-menu-strawberry": 1,
+	"btn-menu-strawberry": 1,
+	"btn-menu-stairs": 1,
+	"btn-menu-cheeseburger": 0,
+	"btn-menu-candy_box": 0,
+	"btn-menu-kebab": 1,
+	"btn-menu-meatballs": 1,
+	"btn-menu-chocolate": 0,
+	"btn-menu-cake": 0,
 };
 
 export const REPLACEMENTS_CSS = {

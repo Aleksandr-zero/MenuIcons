@@ -6,6 +6,10 @@
 	border-radius: 8px;
 	position: relative;
 
+	&.demo-code--classes {
+		padding: 16px 20px
+	}
+
 	&__container {
 		position: relative;
 
@@ -40,6 +44,7 @@
 				.demo-code__container-back-btn-title {
 					opacity: 1;
 					visibility: visible;
+					transition-delay: 0.4s;
 				}
 
 				.demo-code__container-btn-copy {
@@ -52,6 +57,71 @@
 			padding: 4px;
 			transition: background-color $animate ease;
 			border-radius: 4px;
+		}
+	}
+
+	&__content {
+
+		&-items {
+			display: flex;
+			align-items: center;
+		}
+
+		&-item {
+			margin-right: 12px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			&-btn {
+				color: $primary-color-3;
+				font-size: 16px;
+				padding: 4px 6px;
+				border-radius: 4px;
+				border: 1px solid $primary-color-3;
+			}
+
+			&-add {
+				margin-top: 6px;
+				display: flex;
+				width: 100%;
+				justify-content: center;
+				position: relative;
+
+				&-btn {
+					padding: 4px 0px;
+					width: 100%;
+
+					&:hover {
+						~.demo-code__content-item-add-back-title {
+							opacity: 1;
+							visibility: visible;
+							transition-delay: 0.4s;
+						}
+					}
+				}
+
+				&-back-title {
+					position: absolute;
+					left: 50%;
+					transform: translateX(-50%);
+					width: 100px;
+					top: 32px;
+					z-index: 1;
+
+					visibility: hidden;
+					opacity: 0;
+
+					transition: all $animate ease;
+				}
+
+				&-title {
+					font-size: 12px;
+					padding: 4px 8px;
+					border-radius: 4px;
+					background-color: $primary-color-5;
+				}
+			}
 		}
 	}
 }

@@ -44,7 +44,15 @@ export const TEMP_JS_DEMO = `
 `;
 
 export const TEMP_BTNS_DEMO = `
+<div class="wrapper-demo-code">
+	<div class="demo-code code-demo demo-code--classes">
+		<div class="demo-code__container">
+			<div class="demo-code__content">
 
+			</div>
+		</div>
+	</div>
+</div>
 `;
 
 
@@ -61,5 +69,5 @@ export const TEMP_JS = `
 `;
 
 export const TEMP_DEMO = `
-	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_BTNS_DEMO)}
+	${TEMP_BTNS_DEMO}
 `;

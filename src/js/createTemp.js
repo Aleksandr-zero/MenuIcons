@@ -5,6 +5,7 @@ import {
 	GET_REQUESTED_CSS,
 	SAME_VALUES_PROPERTIES,
 	REMOVED_PROPERTY,
+	ACTIVE_CLASSES_BUTTON,
 	REPLACEMENTS_CSS,
 	COMMON_JS
 } from "./constants.js";
@@ -100,8 +101,64 @@ export const createTempJs_ForDemo = (tempBtn, typeTempCode) => {
 };
 
 
-export const createTempDemo_ForDemo = (tempBtn, typeTempCode) => {
+export const createTempDemo_ForDemo = (temp, nameBtn) => {
+	const blockItems = document.createElement("ul");
+	blockItems.className = "demo-code__content-items";
 
+	for ( let numberClass = 0; ACTIVE_CLASSES_BUTTON[nameBtn] > numberClass; numberClass++ ) {
+		blockItems.insertAdjacentHTML("beforeend", `
+			<li class="demo-code__content-item">
+				<button type="button" data-class-btn="${nameBtn + "-"}${numberClass + 1}" class="demo-code__content-item-btn">
+					Active - ${numberClass + 1}
+				</button>
+				<div class="demo-code__content-item-add">
+					<button type="button" class="demo-code__content-item-add-btn">
+						<svg height="24" fill="#FFFFFF" viewBox="0 0 16 16" width="24">
+							<path d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
+						</svg>
+					</button>
+					<div class="demo-code__content-item-add-back-title">
+						<h4 class="demo-code__content-item-add-title">Add class to<br>css properties</h4>
+					</div>
+				</div>
+			</li>
+		`);
+	};
+
+	const DOMEl_Temp = new DOMParser().parseFromString(temp, "text/xml");;
+	DOMEl_Temp.querySelector(".demo-code__content").append(blockItems);
+
+	return DOMEl_Temp.firstChild.innerHTML;
+};
+
+export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
+	btns.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			const activeClass = event.currentTarget.dataset.classBtn;
+			const nameClassBtn = `btn-menu-${currentBtn.dataset.type}`;
+
+			if ( currentBtn.classList.contains(activeClass) ) {
+				currentBtn.classList.remove(activeClass);
+				return;
+			};
+
+			removeLastActiveClassBtn(currentBtn, nameClassBtn, activeClass.slice(-1));
+
+			currentBtn.classList.add(activeClass);
+		});
+	});
+};
+
+const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveClass) => {
+	for ( let numberClass = 0; ACTIVE_CLASSES_BUTTON[nameClassBtn] > numberClass; numberClass++ ) {
+		if ( currentScoreActiveClass === numberClass + 1 ) {
+			continue;
+		};
+
+		if ( btn.classList.contains(`${nameClassBtn}-${numberClass + 1}`) ) {
+			btn.classList.remove(`${nameClassBtn}-${numberClass + 1}`);
+		};
+	};
 };
 
 
