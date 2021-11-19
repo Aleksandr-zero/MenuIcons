@@ -36,6 +36,9 @@ export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 	let currentMenuIconTemp = pressedBtn.closest('.example-item-active').querySelector(".example__item-content-wrapper-btn").cloneNode(true);
 
 	const currentMenuIconBtn = currentMenuIconTemp.querySelector(".example__item-content-btn");
+
+	removeLastActiveClassBtn(currentMenuIconBtn, `btn-menu-${currentMenuIconBtn.dataset.type}`, 0);
+
 	currentMenuIconBtn.classList.remove("example__item-content-btn");
 	currentMenuIconBtn.removeAttribute("data-type");
 
@@ -149,7 +152,7 @@ export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
 	});
 };
 
-const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveClass) => {
+export const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveClass) => {
 	for ( let numberClass = 0; ACTIVE_CLASSES_BUTTON[nameClassBtn] > numberClass; numberClass++ ) {
 		if ( currentScoreActiveClass === numberClass + 1 ) {
 			continue;
@@ -180,9 +183,11 @@ export function checksIfBlockIsOutOfWindow(block) {
 
 	if ( styleBlock.x + styleBlock.width >= widthWindow_Browser ) {
 		const positionLeft_ToExitWindow = (widthWindow_WithScroll - widthWindow) + widthWindow - widtnBody;
-
 		block.closest(".demo-code").style.left = `-${positionLeft_ToExitWindow + 50}px`;
-	};
+
+	} else if ( styleBlock.x <= 20 ) {
+		block.closest(".demo-code").style.right = `-${Math.abs(styleBlock.x) + 50}px`;
+	}
 };
 
 

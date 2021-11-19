@@ -10,7 +10,8 @@ import {
 	createTempJs_ForDemo,
 	createTempDemo_ForDemo,
 	addEventBtns_ForDemoTemp,
-	checksIfBlockIsOutOfWindow
+	checksIfBlockIsOutOfWindow,
+	removeLastActiveClassBtn
 } from "./createTemp.js";
 
 import { addEvent_CopyText } from "./handlerCopy.js";
@@ -129,6 +130,9 @@ const closeMenuDemo = () => {
 
 		activeBlock.classList.remove("example-item-active");
 		activeBlock.querySelector(".open-menu").remove();
+
+		const currentBtn = activeBlock.querySelector(".example__item-content-btn");
+		removeLastActiveClassBtn(currentBtn, `btn-menu-${currentBtn.dataset.type}`, 0);
 	};
 };
 

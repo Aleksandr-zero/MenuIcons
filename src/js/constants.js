@@ -100,7 +100,6 @@ export const ACTIVE_CLASSES_BUTTON = {
 	"btn-menu-hotdog": 2,
 	"btn-menu-fries": 1,
 	"btn-menu-strawberry": 1,
-	"btn-menu-strawberry": 1,
 	"btn-menu-stairs": 1,
 	"btn-menu-cheeseburger": 0,
 	"btn-menu-candy_box": 0,
