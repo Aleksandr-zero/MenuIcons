@@ -7,7 +7,8 @@
     "dev": "gulp serve",
     "build-gulp": "gulp build",
     "build-rollup": "rollup --config ./rollup.config.js",
-    "build": "npm run build-gulp && npm run build-rollup"
+    "build": "npm run build-gulp && npm run build-rollup",
+    "serve:build": "gulp serveBuild"
   },
   "repository": {
     "type": "git",

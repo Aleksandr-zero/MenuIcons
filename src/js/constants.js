@@ -12,6 +12,13 @@ export const NUMBER_CHECK_BORDER_OF_SCREEN = 10; // px
 export const ANIMATE = 200; // ms
 export const NUMBER_FOR_DELAY_ANIMATE = 150; // ms
 
+export const REPLACE_SUBSTRINGS_ACTIVE_CLASS = {
+	0: [/;\s/g, ";\n\t"],
+	1: [/{\s/g, "{\n\t"],
+	2: [/\t}/g, "}\n"],
+	3: [/-[0-9]/, "--active"],
+};
+
 export const TABLE = {
 	"html": `${TEMP_HTML}`,
 	"css": `${TEMP_CSS}`,

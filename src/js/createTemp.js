@@ -3,6 +3,7 @@ import {
 	NUMBER_FOR_DELAY_ANIMATE,
 	NUMBER_MOVE_BORDER_OF_SCREEN,
 	NUMBER_CHECK_BORDER_OF_SCREEN,
+	REPLACE_SUBSTRINGS_ACTIVE_CLASS,
 
 	TABLE,
 	COMMON_CSS,
@@ -17,7 +18,7 @@ import {
 import { matrixTransformation } from "./matrixTransformation.js";
 
 
-let activeClassAtBtn = "btn-menu-hamburger-1";
+let activeClassAtBtn = false;
 
 const stylesToBeRemoved = {
 
@@ -78,9 +79,7 @@ const buildCss_FromTemp = ( temp, foundCss ) => {
 };
 
 export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
-	if ( activeClassAtBtn ) {
-		findCssAtActiveClassBtn(activeClassAtBtn);
-	};
+	let templActiveClass = false;
 
 	const nameBtn = tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn").classList[1];
 
@@ -93,6 +92,10 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 
 	let blankCss = buildCss_FromTemp(COMMON_CSS, foundCss);
 	blankCss = cleaningCss(blankCss);
+	if ( activeClassAtBtn ) {
+		templActiveClass = findCssAtActiveClassBtn(activeClassAtBtn);
+		blankCss += `\n${templActiveClass}`;
+	};
 
 	let readyCss = buildReadyTemp_Hljs(blankCss, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "css");
 
@@ -102,6 +105,8 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 };
 
 const findCssAtActiveClassBtn = (activeClassAtBtn) => {
+	let templActiveClass = "";
+
 	const styleSheets = Array.from(document.styleSheets).filter(
 		(styleSheet) => !styleSheet.href || styleSheet.href.startsWith(window.location.origin)
 	);
@@ -111,13 +116,22 @@ const findCssAtActiveClassBtn = (activeClassAtBtn) => {
 			if ( style.href && style.href.split("/")[style.href.split("/").length - 1] === "style.css" ) {
 				for ( let index = 0; index < style.cssRules.length; index++ ) {
 					if ( style.cssRules[index].cssText.includes(activeClassAtBtn) ) {
-						console.log(style.cssRules[index].cssText);
-						console.log("\n");
+						let readyCSS = style.cssRules[index].cssText;
+
+						for ( let indexKey = 0; indexKey < Object.keys(REPLACE_SUBSTRINGS_ACTIVE_CLASS).length; indexKey++ ) {
+							readyCSS = readyCSS.replace(
+								REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][0], REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][1]
+							);
+						};
+
+						templActiveClass += `${readyCSS}\n`;
 					};
 				};
 			};
 		};
 	};
+
+	return templActiveClass;
 };
 
 

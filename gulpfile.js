@@ -81,6 +81,13 @@ const clear = () => {
 };
 
 
+const serveBuild = () => {
+    sync.init({
+        server: './app/'
+    });
+}
+
+
 const serve = () => {
     sync.init({
         server: './app/'
@@ -94,3 +101,4 @@ const serve = () => {
 
 exports.build = series(clear, parallel(scssBuild, htmlBuild, fonts));
 exports.serve = series(clear, parallel(scssDev, htmlDev, fonts, scriptsDev, serve));
+exports.serveBuild = series(serveBuild);
