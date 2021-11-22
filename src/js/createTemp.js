@@ -17,12 +17,12 @@ import {
 
 import { matrixTransformation } from "./matrixTransformation.js";
 
+import { changeTitleBtnCopy } from "./handlerCopy.js";
+
 
 let activeClassAtBtn = false;
 
-const stylesToBeRemoved = {
-
-};
+const stylesToBeRemoved = {};
 
 
 export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
@@ -39,8 +39,6 @@ export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
 
 export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 	// Извлекает html (иконка для меню) при нажатии кнопки для показа кода.
-
-	activeClassAtBtn = false
 
 	let currentMenuIconTemp = pressedBtn.closest('.example-item-active').querySelector(".example__item-content-wrapper-btn").cloneNode(true);
 
@@ -160,7 +158,7 @@ export const createTempDemo_ForDemo = (temp, nameBtn) => {
 					Active - ${numberClass + 1}
 				</button>
 				<div class="demo-code__content-item-add">
-					<button type="button" class="demo-code__content-item-add-btn">
+					<button type="button" data-class-btn="${nameBtn + "-"}${numberClass + 1}" class="demo-code__content-item-add-btn">
 						<svg height="24" fill="#FFFFFF" viewBox="0 0 16 16" width="24">
 							<path d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
 						</svg>
@@ -184,9 +182,16 @@ export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
 		btn.addEventListener("click", () => {
 			const activeClass = event.currentTarget.dataset.classBtn;
 			const nameClassBtn = `btn-menu-${currentBtn.dataset.type}`;
-			activeClassAtBtn = activeClass;
+
+			const activeBtn = event.currentTarget.closest(".demo-code__content-items").querySelector(".demo-code__content-item-btn--active");
+			if ( activeBtn ) {
+				activeBtn.classList.remove("demo-code__content-item-btn--active");
+			};
+
+			event.currentTarget.classList.toggle("demo-code__content-item-btn--active");
 
 			if ( currentBtn.classList.contains(activeClass) ) {
+				event.currentTarget.classList.remove("demo-code__content-item-btn--active");
 				currentBtn.classList.remove(activeClass);
 				return;
 			};
@@ -200,6 +205,20 @@ export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
 			} else {
 				currentBtn.classList.add(activeClass);
 			};
+		});
+	});
+};
+
+export const addEventBtns_ForDemoTemp_AddActiveCLass = (btns) => {
+	/* Добавляет события на кнопки - добавление активного класса в css-свойства */
+
+	btns.forEach((btn) => {
+		btn.addEventListener("click", () => {
+			const activeClass = event.currentTarget.dataset.classBtn;
+			activeClassAtBtn = activeClass;
+
+			const titleHelp = event.currentTarget.closest(".demo-code__content-item-add").querySelector(".demo-code__content-item-add-title");
+			changeTitleBtnCopy(titleHelp, "Active class added", titleHelp.innerHTML);
 		});
 	});
 };
@@ -221,6 +240,39 @@ export const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveCl
 	if ( isActiveClasses ) {
 		return true;
 	};
+};
+
+export const checkActiveClass_AtBtn = (currentBtn) => {
+	/* Проверяет активный класс у наличи кнопки, в случае true добавляет в шаблон */
+
+	let activeClassAtBtn = false;
+	const classesAtCurrentBtn = currentBtn.classList;
+	const nameClassBtn = `btn-menu-${currentBtn.dataset.type}`;
+
+	for ( let numberClass = 0; ACTIVE_CLASSES_BUTTON[nameClassBtn] > numberClass; numberClass++ ) {
+		if ( classesAtCurrentBtn.contains(`${nameClassBtn}-${numberClass + 1}`) ) {
+			activeClassAtBtn = `${nameClassBtn}-${numberClass + 1}`;
+			break;
+		};
+	};
+
+	if ( activeClassAtBtn ) {
+		addActiveClassBtn_AfterReCreation(currentBtn, activeClassAtBtn);
+	};
+};
+
+const addActiveClassBtn_AfterReCreation = (currentBtn, activeClassAtBtn) => {
+	const activeBtnAddedClass = currentBtn.closest(".example__item").querySelector(`.demo-code__content-item-btn[data-class-btn="${activeClassAtBtn}"]`);
+	activeBtnAddedClass.classList.add("demo-code__content-item-btn--active");
+};
+
+export const addEventBtn_DeleteCssProperties = (btnDelete) => {
+	btnDelete.addEventListener("click", () => {
+		activeClassAtBtn = false;
+
+		const titleHelp = btnDelete.closest(".demo-code__container-back-delete-wrapper").querySelector(".demo-code__content-item-add-title");
+		changeTitleBtnCopy(titleHelp, "CSS properties cleared", titleHelp.innerHTML);
+	});
 };
 
 

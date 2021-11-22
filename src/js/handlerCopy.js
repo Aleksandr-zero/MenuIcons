@@ -1,4 +1,4 @@
-const changeTitleBtnCopy = (title, newText, lastText) => {
+export const changeTitleBtnCopy = (title, newText, lastText) => {
 	title.innerHTML = newText;
 
 	setTimeout(() => {

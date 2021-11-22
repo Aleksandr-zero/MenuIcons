@@ -1,5 +1,4 @@
 import {
-	ANIMATE,
 	TABLE
 } from "./constants.js";
 
@@ -8,10 +7,15 @@ import {
 	retrievesTempPressedBtnOpenDemo,
 	createTempCss_ForDemo,
 	createTempJs_ForDemo,
+
 	createTempDemo_ForDemo,
 	addEventBtns_ForDemoTemp,
+	addEventBtns_ForDemoTemp_AddActiveCLass,
+	checkActiveClass_AtBtn,
+	removeLastActiveClassBtn,
+	addEventBtn_DeleteCssProperties,
+
 	checksIfBlockIsOutOfWindow,
-	removeLastActiveClassBtn
 } from "./createTemp.js";
 
 import { addEvent_CopyText } from "./handlerCopy.js";
@@ -84,6 +88,13 @@ const showsCodeForDemo = (event) => {
 			currentItem.querySelectorAll(".demo-code__content-item-btn"),
 			currentBtn
 		);
+		addEventBtns_ForDemoTemp_AddActiveCLass(
+			currentItem.querySelectorAll(".demo-code__content-item-add-btn"),
+		);
+		addEventBtn_DeleteCssProperties(
+			currentItem.querySelector(".demo-code__container-delete"),
+		);
+		checkActiveClass_AtBtn(currentBtn);
 	};
 
 	if ( typeCode !== "demo" ) {

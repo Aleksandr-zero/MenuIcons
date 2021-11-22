@@ -47,6 +47,18 @@ export const TEMP_BTNS_DEMO = `
 <div class="wrapper-demo-code">
 	<div class="demo-code code-demo demo-code--classes">
 		<div class="demo-code__container">
+			<div class="demo-code__container-back-delete">
+				<div class="demo-code__container-back-delete-wrapper">
+					<button type="button" class="demo-code__container-delete">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="18" height="18" viewBox="0 0 24 24">
+							<path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"/>
+						</svg>
+					</button>
+					<div class="demo-code__content-item-add-back-title">
+						<h4 class="demo-code__content-item-add-title">Clear CSS properties</h4>
+					</div>
+				</div>
+			</div>
 			<div class="demo-code__content">
 
 			</div>
