@@ -6,7 +6,11 @@ import {
 } from "./templates/temp.js";
 
 
-export const ANIMATE = 0.2;
+export const NUMBER_MOVE_BORDER_OF_SCREEN = 50; // px
+export const NUMBER_CHECK_BORDER_OF_SCREEN = 10; // px
+
+export const ANIMATE = 200; // ms
+export const NUMBER_FOR_DELAY_ANIMATE = 150; // ms
 
 export const TABLE = {
 	"html": `${TEMP_HTML}`,
@@ -34,6 +38,8 @@ export const COMMON_CSS = `
 	background-color: rgb(254, 254, 254);
 	font-size: 0;
 	color: transparent;
+	-webkit-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
 	transition: all 0.2s ease;
 }
 
@@ -45,6 +51,8 @@ export const COMMON_CSS = `
 	height: {{ span-bef-af-height }};
 	background-color: {{ span-bef-af-back-color }};
 	border-radius: 4px;
+	-webkit-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
 	transition: all 0.2s ease;
 }
 

@@ -1,5 +1,9 @@
 import {
 	ANIMATE,
+	NUMBER_FOR_DELAY_ANIMATE,
+	NUMBER_MOVE_BORDER_OF_SCREEN,
+	NUMBER_CHECK_BORDER_OF_SCREEN,
+
 	TABLE,
 	COMMON_CSS,
 	GET_REQUESTED_CSS,
@@ -7,11 +11,13 @@ import {
 	REMOVED_PROPERTY,
 	ACTIVE_CLASSES_BUTTON,
 	REPLACEMENTS_CSS,
-	COMMON_JS
+	COMMON_JS,
 } from "./constants.js";
 
 import { matrixTransformation } from "./matrixTransformation.js";
 
+
+let activeClassAtBtn = "btn-menu-hamburger-1";
 
 const stylesToBeRemoved = {
 
@@ -32,6 +38,8 @@ export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
 
 export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 	// Извлекает html (иконка для меню) при нажатии кнопки для показа кода.
+
+	activeClassAtBtn = false
 
 	let currentMenuIconTemp = pressedBtn.closest('.example-item-active').querySelector(".example__item-content-wrapper-btn").cloneNode(true);
 
@@ -70,11 +78,15 @@ const buildCss_FromTemp = ( temp, foundCss ) => {
 };
 
 export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
+	if ( activeClassAtBtn ) {
+		findCssAtActiveClassBtn(activeClassAtBtn);
+	};
+
 	const nameBtn = tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn").classList[1];
 
 	const foundCss = pullsStylesBtn(
 		tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn")
-		);
+	);
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
@@ -87,6 +99,25 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ demo-code }}/, readyCss);
 
 	return newTempCodeForDemo;
+};
+
+const findCssAtActiveClassBtn = (activeClassAtBtn) => {
+	const styleSheets = Array.from(document.styleSheets).filter(
+		(styleSheet) => !styleSheet.href || styleSheet.href.startsWith(window.location.origin)
+	);
+
+	for ( let style of styleSheets ) {
+		if ( style instanceof CSSStyleSheet && style.cssRules ) {
+			if ( style.href && style.href.split("/")[style.href.split("/").length - 1] === "style.css" ) {
+				for ( let index = 0; index < style.cssRules.length; index++ ) {
+					if ( style.cssRules[index].cssText.includes(activeClassAtBtn) ) {
+						console.log(style.cssRules[index].cssText);
+						console.log("\n");
+					};
+				};
+			};
+		};
+	};
 };
 
 
@@ -128,10 +159,10 @@ export const createTempDemo_ForDemo = (temp, nameBtn) => {
 		`);
 	};
 
-	const DOMEl_Temp = new DOMParser().parseFromString(temp, "text/xml");;
-	DOMEl_Temp.querySelector(".demo-code__content").append(blockItems);
+	const DOM_El_Temp = new DOMParser().parseFromString(temp, "text/xml");;
+	DOM_El_Temp.querySelector(".demo-code__content").append(blockItems);
 
-	return DOMEl_Temp.firstChild.innerHTML;
+	return DOM_El_Temp.firstChild.innerHTML;
 };
 
 export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
@@ -139,20 +170,29 @@ export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
 		btn.addEventListener("click", () => {
 			const activeClass = event.currentTarget.dataset.classBtn;
 			const nameClassBtn = `btn-menu-${currentBtn.dataset.type}`;
+			activeClassAtBtn = activeClass;
 
 			if ( currentBtn.classList.contains(activeClass) ) {
 				currentBtn.classList.remove(activeClass);
 				return;
 			};
 
-			removeLastActiveClassBtn(currentBtn, nameClassBtn, activeClass.slice(-1));
+			const isActiveClasses = removeLastActiveClassBtn(currentBtn, nameClassBtn, activeClass.slice(-1));
 
-			currentBtn.classList.add(activeClass);
+			if ( isActiveClasses ) {
+				setTimeout(() => {
+					currentBtn.classList.add(activeClass);
+				}, ANIMATE + NUMBER_FOR_DELAY_ANIMATE);
+			} else {
+				currentBtn.classList.add(activeClass);
+			};
 		});
 	});
 };
 
 export const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveClass) => {
+	let isActiveClasses = 0;
+
 	for ( let numberClass = 0; ACTIVE_CLASSES_BUTTON[nameClassBtn] > numberClass; numberClass++ ) {
 		if ( currentScoreActiveClass === numberClass + 1 ) {
 			continue;
@@ -160,7 +200,12 @@ export const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveCl
 
 		if ( btn.classList.contains(`${nameClassBtn}-${numberClass + 1}`) ) {
 			btn.classList.remove(`${nameClassBtn}-${numberClass + 1}`);
+			isActiveClasses++;
 		};
+	};
+
+	if ( isActiveClasses ) {
+		return true;
 	};
 };
 
@@ -181,12 +226,12 @@ export function checksIfBlockIsOutOfWindow(block) {
 
 	const styleBlock = block.getBoundingClientRect();
 
-	if ( styleBlock.x + styleBlock.width >= widthWindow_Browser ) {
+	if ( styleBlock.x + styleBlock.width + NUMBER_CHECK_BORDER_OF_SCREEN >= widthWindow_Browser ) {
 		const positionLeft_ToExitWindow = (widthWindow_WithScroll - widthWindow) + widthWindow - widtnBody;
-		block.closest(".demo-code").style.left = `-${positionLeft_ToExitWindow + 50}px`;
+		block.closest(".demo-code").style.left = `-${positionLeft_ToExitWindow + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
 
-	} else if ( styleBlock.x <= 20 ) {
-		block.closest(".demo-code").style.right = `-${Math.abs(styleBlock.x) + 50}px`;
+	} else if ( styleBlock.x <= NUMBER_CHECK_BORDER_OF_SCREEN ) {
+		block.closest(".demo-code").style.right = `-${Math.abs(styleBlock.x) + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
 	}
 };
 
