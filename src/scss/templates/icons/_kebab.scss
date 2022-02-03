@@ -1,5 +1,6 @@
 .btn-menu-kebab {
 	padding: 22px 12px;
+	transition: all $animate ease;
 	@include reset-btn;
 
 	span {
@@ -9,10 +10,11 @@
 		height: 10px;
 		border-radius: 50%;
 		background-color: $primary-color-3;
+		transition: all $animate ease;
 		@include reset-btn-span;
 
-		&::before,
-		&::after {
+		&::after, 
+		&::before {
 			position: absolute;
 			content: "";
 			background-color: $primary-color-3;
@@ -20,6 +22,7 @@
 			width: 10px;
 			border-radius: 50%;
 			left: 0;
+			transition: all $animate ease;
 		}
 
 		&::before {
@@ -28,6 +31,30 @@
 
 		&::after {
 			bottom: -16px;
+		}
+	}
+
+	&.btn-menu-kebab-1 {
+		padding: 16px 12px;
+
+		span {
+			border-radius: 4px;
+			width: 44px;
+			height: 5px;
+
+			&::after,
+			&::before {
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			&::before {
+				top: -3px;
+			}
+
+			&::after {
+				bottom: -3px;
+			}
 		}
 	}
 }

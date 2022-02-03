@@ -6,10 +6,11 @@
 		position: relative;
 		display: block;
 		width: 44px;
+		height: 5px;
 		@include reset-btn-span;
 
-		&::before,
-		&::after {
+		&::after, 
+		&::before {
 			position: absolute;
 			content: "";
 			width: 44px;
@@ -17,14 +18,27 @@
 			border-radius: 4px;
 			background-color: $primary-color-3;
 			left: 0;
+			transition: all $animate ease;
 		}
 
 		&::before {
-			top: -10px;
+			top: -5px;
 		}
 
-		&::atfer {
-			bottom: -10px;
+		&::after {
+			bottom: -5px;
+		}
+	}
+
+	&.btn-menu-veggie_burger-1 {
+		span {
+			@include set-base-animate-icon-1;
+		}
+	}
+
+	&.btn-menu-veggie_burger-2 {
+		span {
+			@include set-base-animate-icon-2;
 		}
 	}
 }

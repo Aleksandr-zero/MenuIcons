@@ -146,7 +146,7 @@ const findCssAtActiveClassBtn = (activeClassAtBtn) => {
 
 const chengeSelectorActiveClass = (cssText, nameBtn) => {
 	cssText = cssText.replace(
-		/-[1-9]/g, "--active"
+		/[a-z](-[1-9])/g, "--active"
 	);
 
 	return cssText;

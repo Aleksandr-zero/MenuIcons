@@ -30,15 +30,15 @@ export const ACTIVE_CLASSES_BUTTON = {
 	"btn-menu-hamburger": 2,
 	"btn-menu-veggie_burger": 2,
 	"btn-menu-hotdog": 2,
-	"btn-menu-fries": 1,
-	"btn-menu-strawberry": 1,
-	"btn-menu-stairs": 1,
-	"btn-menu-cheeseburger": 0,
-	"btn-menu-candy_box": 0,
+	"btn-menu-fries": 2,
+	"btn-menu-strawberry": 2,
+	"btn-menu-stairs": 2,
+	"btn-menu-cheeseburger": 1,
+	"btn-menu-candy_box": 2,
 	"btn-menu-kebab": 1,
 	"btn-menu-meatballs": 1,
-	"btn-menu-chocolate": 0,
-	"btn-menu-cake": 0,
+	"btn-menu-chocolate": 2,
+	"btn-menu-cake": 2,
 };
 
 export const COMMON_JS = `

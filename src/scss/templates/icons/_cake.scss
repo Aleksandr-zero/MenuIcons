@@ -1,5 +1,6 @@
 .btn-menu-cake {
 	padding: 17px 12px 17px 20px;
+	transition: all $animate ease;
 	@include reset-btn;
 
 	span {
@@ -9,6 +10,7 @@
 		height: 5px;
 		border-radius: 4px;
 		background-color: $primary-color-3;
+		transition: all $animate ease;
 		@include reset-btn-span;
 
 		&:first-child {
@@ -24,11 +26,54 @@
 				left: 50%;
 				transform: translateX(-50%);
 				top: -16px;
+				transition: all $animate ease;
 			}
 		}
 
 		&:last-child {
 			bottom: -10px;
+		}
+	}
+
+	&.btn-menu-cake-1 {
+		padding: 14px 6px 16px 6px;
+
+		span {
+
+			&:first-child {
+				transform: rotate(-45deg);
+				top: 5px;
+
+				&::before {
+					top: -2.5px;
+				}
+			}
+
+			&:nth-child(2) {
+				background-color: transparent;
+			}
+
+			&:last-child {
+				transform: rotate(45deg);
+				bottom: 5px;
+			}
+		}
+	}
+
+	&.btn-menu-cake-2 {
+		span {
+
+			&:first-child {
+				top: 5px;
+
+				&::before {
+					top: -2.5px;
+				}
+			}
+
+			&:last-child {
+				bottom: 5px;
+			}
 		}
 	}
 }

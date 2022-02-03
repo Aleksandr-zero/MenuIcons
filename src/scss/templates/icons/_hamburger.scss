@@ -12,8 +12,8 @@
 		transition: all $animate ease;
 		@include reset-btn-span;
 
-		&::before,
-		&::after {
+		&::after,
+		&::before {
 			position: absolute;
 			content: "";
 			width: 44px;
@@ -34,34 +34,18 @@
 	}
 
 	&.btn-menu-hamburger-1 {
-
 		span {
 			background-color: transparent;
 
-			&::before {
-				top: 0;
-				transform: rotate(-45deg);
-			}
-
-			&::after {
-				bottom: 0;
-				transform: rotate(45deg);
-			}
+			@include set-base-animate-icon-1;
 		}
 	}
 
 	&.btn-menu-hamburger-2 {
-
 		span {
 			background-color: transparent;
 
-			&::before {
-				top: 0;
-			}
-
-			&::after {
-				bottom: 0;
-			}
+			@include set-base-animate-icon-2;
 		}
 	}
 }

@@ -9,10 +9,11 @@
 		height: 5px;
 		border-radius: 4px;
 		background-color: $primary-color-3;
+		transition: all $animate ease;
 		@include reset-btn-span;
 
-		&::before,
-		&::after {
+		&::after, 
+		&::before {
 			position: absolute;
 			content: "";
 			width: 44px;
@@ -20,6 +21,7 @@
 			border-radius: 4px;
 			background-color: $primary-color-3;
 			left: 0;
+			transition: all $animate ease;
 		}
 
 		&::before {
@@ -28,6 +30,22 @@
 
 		&::after {
 			bottom: -12px;
+		}
+	}
+
+	&.btn-menu-fries-1 {
+		span {
+			background-color: transparent;
+
+			@include set-base-animate-icon-1;
+		}
+	}
+
+	&.btn-menu-fries-2 {
+		span {
+			background-color: transparent;
+
+			@include set-base-animate-icon-2;
 		}
 	}
 }

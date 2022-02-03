@@ -11,16 +11,18 @@
 		border-radius: 4px;
 		background-color: $primary-color-3;
 		margin: 0 auto;
+		transition: all $animate ease;
 		@include reset-btn-span;
 
-		&::before,
-		&::after {
+		&::after, 
+		&::before {
 			position: absolute;
 			content: "";
 			width: 33px;
 			height: 5px;
 			border-radius: 4px;
 			background-color: $primary-color-3;
+			transition: all $animate ease;
 		}
 
 		&::before {
@@ -31,6 +33,35 @@
 		&::after {
 			bottom: -12px;
 			left: -10px;
+		}
+	}
+
+	&.btn-menu-stairs-1 {
+		span {
+			background-color: transparent;
+
+			&::after,
+			&::before {
+				width: 133%;
+				left: 0;
+			}
+
+			@include set-base-animate-icon-1;
+		}
+	}
+
+	&.btn-menu-stairs-2 {
+		span {
+			background-color: transparent;
+
+			&::after,
+			&::before {
+				left: 50%;
+				width: 133%;
+				transform: translateX(-50%);
+			}
+
+			@include set-base-animate-icon-2;
 		}
 	}
 }

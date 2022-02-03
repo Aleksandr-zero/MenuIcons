@@ -1,5 +1,6 @@
 .btn-menu-cheeseburger {
 	padding: 17px 12px 17px 20px;
+	transition: all $animate ease;
 	@include reset-btn;
 
 	span {
@@ -9,6 +10,7 @@
 		height: 5px;
 		border-radius: 4px;
 		background-color: $primary-color-3;
+		transition: all $animate ease;
 		@include reset-btn-span;
 
 		&::before {
@@ -19,7 +21,9 @@
 			width: 10px;
 			border-radius: 50%;
 			left: -16px;
-			top: -3px;
+			top: 50%;
+			transform: translateY(-50%);
+			transition: all $animate ease;
 		}
 
 		&:first-child {
@@ -28,6 +32,19 @@
 
 		&:last-child {
 			bottom: -10px;
+		}
+	}
+
+	&.btn-menu-cheeseburger-1 {
+		span {
+
+			&:first-child {
+				top: 5px;
+			}
+			
+			&:last-child {
+				bottom: 5px;
+			}
 		}
 	}
 }

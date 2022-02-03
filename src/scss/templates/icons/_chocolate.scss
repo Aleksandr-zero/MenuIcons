@@ -1,5 +1,6 @@
 .btn-menu-chocolate {
 	padding: 16px 24px;
+	transition: all $animate ease;
 	@include reset-btn;
 
 	span {
@@ -8,15 +9,17 @@
 		width: 10px;
 		height: 10px;
 		background-color: $primary-color-3;
+		transition: all $animate ease;
 		@include reset-btn-span;
 
-		&::before,
-		&::after {
+		&::after, 
+		&::before {
 			position: absolute;
 			content: "";
 			background-color: $primary-color-3;
 			height: 10px;
 			width: 10px;
+			transition: all $animate ease;
 		}
 
 		&::before {
@@ -33,6 +36,53 @@
 
 		&:last-child {
 			bottom: -10px;
+		}
+	}
+
+	&.btn-menu-chocolate-1 {
+		padding: 0px 24px;
+
+		span {
+
+			&:first-child {
+				top: 10px;
+			}
+
+			&:last-child {
+				bottom: 10px;
+			}
+		}
+	}
+
+	&.btn-menu-chocolate-2 {
+		padding: 0px 24px;
+
+		span {
+
+			&:first-child {
+				top: 10px;
+			}
+
+			&:nth-child(2) {
+				&::after,
+				&::before {
+					width: 275%;
+				}
+
+				&::before {
+					left: 50%;
+					transform: translateX(-50%);
+				}
+
+				&::after {
+					right: 50%;
+					transform: translateX(50%);
+				}
+			}
+
+			&:last-child {
+				bottom: 10px;
+			}
 		}
 	}
 }

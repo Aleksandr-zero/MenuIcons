@@ -8,6 +8,7 @@ const include           = require('gulp-file-include');
 const htmlmin           = require("gulp-htmlmin");
 const del               = require('del');
 const concat            = require('gulp-concat');
+const sourcemaps        = require('gulp-sourcemaps')
 const sync              = require('browser-sync').create();
 
 
@@ -64,10 +65,14 @@ const scriptsDev = () => {
 
 const scssDev = () => {
 	 return src('./src/scss/style.scss')
+		 .pipe(sourcemaps.init({
+			 largeFile: true
+		 }))
 		 .pipe(sass({
 			outputStyle:'expanded'
 		}))
 		 .pipe(concat('./css/style.css'))
+		 .pipe(sourcemaps.write())
 		 .pipe(dest('./app'));
 };
 

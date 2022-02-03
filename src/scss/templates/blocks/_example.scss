@@ -1,5 +1,6 @@
 .example {
-	margin: 100px 0;
+	margin: 100px 0 60px;
+	overflow: hidden;
 
 	&__items {
 		display: flex;
@@ -40,6 +41,10 @@
 					opacity: 1;
 					transform: translate(-50%, 0) rotateX(0);
 				}
+			}
+
+			&-wrapper-btn {
+				display: flex;
 			}
 
 			&-back-title {

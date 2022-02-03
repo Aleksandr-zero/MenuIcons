@@ -9,10 +9,11 @@
 		height: 5px;
 		border-radius: 4px;
 		background-color: $primary-color-3;
+		transition: all $animate ease;
 		@include reset-btn-span;
 
-		&::before,
-		&::after {
+		&::after, 
+		&::before {
 			position: absolute;
 			content: "";
 			width: 75%;
@@ -21,6 +22,7 @@
 			background-color: $primary-color-3;
 			left: 50%;
 			transform: translateX(-50%);
+			transition: all $animate ease;
 		}
 
 		&::before {
@@ -29,6 +31,33 @@
 
 		&::after {
 			bottom: -12px;
+		}
+	}
+
+	&.btn-menu-hotdog-1 {
+		span {
+			background-color: transparent;
+
+			&::after,
+			&::before {
+				width: 100%;
+				left: 0;
+			}
+
+			@include set-base-animate-icon-1;
+		}
+	}
+
+	&.btn-menu-hotdog-2 {
+		span {
+			background-color: transparent;
+
+			&::after,
+			&::before {
+				width: 100%;
+			}
+
+			@include set-base-animate-icon-2;
 		}
 	}
 }
