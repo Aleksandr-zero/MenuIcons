@@ -1,5 +1,6 @@
 .btn-menu-hotdog {
 	padding: 17px 5px;
+	@include reset-btn;
 
 	span {
 		position: relative;
@@ -8,6 +9,7 @@
 		height: 5px;
 		border-radius: 4px;
 		background-color: $primary-color-3;
+		@include reset-btn-span;
 
 		&::before,
 		&::after {

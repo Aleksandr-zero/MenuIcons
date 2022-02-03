@@ -11,10 +11,25 @@ const concat            = require('gulp-concat');
 const sync              = require('browser-sync').create();
 
 
+const basePathIcon = "./templates/icons";
+const contextFileInclude = {
+	iconsTitle: [
+		"Hamburger", "Veggie burger", "Hotdog", "Fries", "Strawberry", "Stairs", "Cheeseburger",
+		"Candy box", "Kebab", "Meatballs", "Chocolate", "Cake"
+	],
+	iconsPath: [
+		`${basePathIcon}/hamburger.html`, `${basePathIcon}/veggie_burger.html`, `${basePathIcon}/hotdog.html`,
+		`${basePathIcon}/fries.html`, `${basePathIcon}/strawberry.html`, `${basePathIcon}/stairs.html`,
+		`${basePathIcon}/cheeseburger.html`, `${basePathIcon}/candy_box.html`, `${basePathIcon}/kebab.html`,
+		`${basePathIcon}/meatballs.html`, `${basePathIcon}/chocolate.html`, `${basePathIcon}/cake.html`
+	]
+}
+
 const htmlDev = () => {
 	return src('./src/index.html')
 		.pipe(include({
-			prefix: '@@'
+			prefix: '@@',
+			context: contextFileInclude
 		}))
 		.pipe(dest('./app'));
 };
@@ -22,7 +37,8 @@ const htmlDev = () => {
 const htmlBuild = () => {
 	return src('./src/index.html')
 		.pipe(include({
-			prefix: '@@'
+			prefix: '@@',
+			context: contextFileInclude
 		}))
 		.pipe(htmlmin({
 			collapseWhitespace: true,

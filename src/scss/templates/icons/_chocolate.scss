@@ -1,5 +1,6 @@
 .btn-menu-chocolate {
 	padding: 16px 24px;
+	@include reset-btn;
 
 	span {
 		position: relative;
@@ -7,6 +8,7 @@
 		width: 10px;
 		height: 10px;
 		background-color: $primary-color-3;
+		@include reset-btn-span;
 
 		&::before,
 		&::after {

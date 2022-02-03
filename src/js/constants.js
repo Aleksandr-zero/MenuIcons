@@ -16,7 +16,7 @@ export const REPLACE_SUBSTRINGS_ACTIVE_CLASS = {
 	0: [/;\s/g, ";\n\t"],
 	1: [/{\s/g, "{\n\t"],
 	2: [/\t}/g, "}\n"],
-	// 3: [/-[0-9]/, "--active"],
+	3: [/after,\s/g, "after,\n"],
 };
 
 export const TABLE = {
@@ -47,4 +47,4 @@ const menuBtn = document.querySelector(".{{ menu-btn-class }}");
 menuBtn.addEventListener("click", () => {
 	menuBtn.classList.toggle("{{ menu-btn-class }}--active");
 });
-`;
+`.trim();

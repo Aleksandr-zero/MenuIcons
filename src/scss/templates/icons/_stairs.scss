@@ -1,6 +1,7 @@
 .btn-menu-stairs {
 	padding: 17px 5px;
 	width: 66px;
+	@include reset-btn;
 
 	span {
 		position: relative;
@@ -10,6 +11,7 @@
 		border-radius: 4px;
 		background-color: $primary-color-3;
 		margin: 0 auto;
+		@include reset-btn-span;
 
 		&::before,
 		&::after {

@@ -1,0 +1,11 @@
+@mixin reset-btn {
+	border: none;
+	outline: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+@mixin reset-btn-span {
+	color: transparent;
+	font-size: 0;
+}

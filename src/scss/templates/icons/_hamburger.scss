@@ -1,5 +1,6 @@
 .btn-menu-hamburger {
 	padding: 17px 5px;
+	@include reset-btn;
 
 	span {
 		position: relative;
@@ -9,6 +10,7 @@
 		border-radius: 4px;
 		background-color: $primary-color-3;
 		transition: all $animate ease;
+		@include reset-btn-span;
 
 		&::before,
 		&::after {

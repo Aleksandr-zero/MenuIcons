@@ -16,6 +16,7 @@ import {
 	addEventBtn_DeleteCssProperties,
 
 	checksIfBlockIsOutOfWindow,
+	cleanValuesAtClosing,
 } from "./createTemp.js";
 
 import { addEvent_CopyText } from "./handlerCopy.js";
@@ -112,6 +113,8 @@ const closeCodeForDemo = (activeBlock) => {
 	if ( openCodeDemo ) {
 		openCodeDemo.remove();
 	};
+
+	cleanValuesAtClosing();
 };
 
 const addEventClickShowCode = (block) => {

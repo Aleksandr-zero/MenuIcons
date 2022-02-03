@@ -1,5 +1,6 @@
 .btn-menu-candy_box {
 	padding: 16px 24px;
+	@include reset-btn;
 
 	span {
 		position: relative;
@@ -8,6 +9,7 @@
 		height: 10px;
 		border-radius: 50%;
 		background-color: $primary-color-3;
+		@include reset-btn-span;
 
 		&::before,
 		&::after {

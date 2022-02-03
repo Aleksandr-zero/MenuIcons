@@ -14,6 +14,7 @@ import { changeTitleBtnCopy } from "./handlerCopy.js";
 
 
 let activeClassAtBtn = false;
+let cssForActiveClass = "";
 
 
 export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
@@ -96,7 +97,11 @@ const cssBuild = (nameBtn) => {
 		};
 	};
 
-	return blankCss;
+	if ( cssForActiveClass ) {
+		blankCss += cssForActiveClass;
+	};
+
+	return blankCss.trim();
 };
 
 const is_ActiveClass_AtCss = (textCss, nameBtn) => {
@@ -134,7 +139,17 @@ const findCssAtActiveClassBtn = (activeClassAtBtn) => {
 		};
 	};
 
-	return templActiveClass;
+	templActiveClass = chengeSelectorActiveClass(templActiveClass, activeClassAtBtn);
+
+	return templActiveClass.trim();
+};
+
+const chengeSelectorActiveClass = (cssText, nameBtn) => {
+	cssText = cssText.replace(
+		/-[1-9]/g, "--active"
+	);
+
+	return cssText;
 };
 
 
@@ -184,7 +199,7 @@ export const createTempDemo_ForDemo = (temp, nameBtn) => {
 
 export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
 	btns.forEach((btn) => {
-		btn.addEventListener("click", () => {
+		btn.addEventListener("click", (event) => {
 			const activeClass = event.currentTarget.dataset.classBtn;
 			const nameClassBtn = `btn-menu-${currentBtn.dataset.type}`;
 
@@ -218,9 +233,10 @@ export const addEventBtns_ForDemoTemp_AddActiveCLass = (btns) => {
 	/* Добавляет события на кнопки - добавление активного класса в css-свойства */
 
 	btns.forEach((btn) => {
-		btn.addEventListener("click", () => {
+		btn.addEventListener("click", (event) => {
 			const activeClass = event.currentTarget.dataset.classBtn;
 			activeClassAtBtn = activeClass;
+			cssForActiveClass = findCssAtActiveClassBtn(activeClassAtBtn);
 
 			const titleHelp = event.currentTarget.closest(".demo-code__content-item-add").querySelector(".demo-code__content-item-add-title");
 			changeTitleBtnCopy(titleHelp, "Active class added", titleHelp.innerHTML);
@@ -267,14 +283,15 @@ export const checkActiveClass_AtBtn = (currentBtn) => {
 };
 
 const addActiveClassBtn_AfterReCreation = (currentBtn, activeClassAtBtn) => {
-	const activeBtnAddedClass = currentBtn.closest(".example__item")
-					.querySelector(`.demo-code__content-item-btn[data-class-btn="${activeClassAtBtn}"]`);
+	const activeBtnAddedClass = currentBtn.closest(".example__item").querySelector(
+		`.demo-code__content-item-btn[data-class-btn="${activeClassAtBtn}"]`
+	);
 	activeBtnAddedClass.classList.add("demo-code__content-item-btn--active");
 };
 
 export const addEventBtn_DeleteCssProperties = (btnDelete) => {
 	btnDelete.addEventListener("click", () => {
-		activeClassAtBtn = false;
+		cleanValuesAtClosing();
 
 		const titleHelp = btnDelete.closest(".demo-code__container-back-delete-wrapper").querySelector(".demo-code__content-item-add-title");
 		changeTitleBtnCopy(titleHelp, "CSS properties cleared", titleHelp.innerHTML);
@@ -305,4 +322,10 @@ export function checksIfBlockIsOutOfWindow(block) {
 	} else if ( styleBlock.x <= NUMBER_CHECK_BORDER_OF_SCREEN ) {
 		block.closest(".demo-code").style.right = `-${Math.abs(styleBlock.x) + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
 	}
+};
+
+
+export function cleanValuesAtClosing() {
+	cssForActiveClass = "";
+	activeClassAtBtn = false;
 };
