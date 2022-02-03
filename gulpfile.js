@@ -12,90 +12,90 @@ const sync              = require('browser-sync').create();
 
 
 const htmlDev = () => {
-    return src('./src/index.html')
-        .pipe(include({
-            prefix: '@@'
-        }))
-        .pipe(dest('./app'));
+	return src('./src/index.html')
+		.pipe(include({
+			prefix: '@@'
+		}))
+		.pipe(dest('./app'));
 };
 
 const htmlBuild = () => {
-    return src('./src/index.html')
-        .pipe(include({
-            prefix: '@@'
-        }))
-        .pipe(htmlmin({
-            collapseWhitespace: true,
-            collapseInlineTagWhitespace: true,
-            collapseBooleanAttributes: true,
-            decodeEntities: true,
-            removeComments: true,
-            continueOnParseError: true,
-            removeEmptyAttributes: true,
-            removeRedundantAttributes: true,
-            removeScriptTypeAttributes: true,
-            removeStyleLinkTypeAttributes: true
-        }))
-        .pipe(dest('./app'));
+	return src('./src/index.html')
+		.pipe(include({
+			prefix: '@@'
+		}))
+		.pipe(htmlmin({
+			collapseWhitespace: true,
+			collapseInlineTagWhitespace: true,
+			collapseBooleanAttributes: true,
+			decodeEntities: true,
+			removeComments: true,
+			continueOnParseError: true,
+			removeEmptyAttributes: true,
+			removeRedundantAttributes: true,
+			removeScriptTypeAttributes: true,
+			removeStyleLinkTypeAttributes: true
+		}))
+		.pipe(dest('./app'));
 };
 
 
 const scriptsDev = () => {
-    return src("./src/js/**/*.js")
-        .pipe(dest("./app/js"))
+	return src("./src/js/**/*.js")
+		.pipe(dest("./app/js"))
 };
 
 
 const scssDev = () => {
-   return src('./src/scss/style.scss')
-       .pipe(sass({
-            outputStyle:'expanded'
-        }))
-       .pipe(concat('./css/style.css'))
-       .pipe(dest('./app'));
+	 return src('./src/scss/style.scss')
+		 .pipe(sass({
+			outputStyle:'expanded'
+		}))
+		 .pipe(concat('./css/style.css'))
+		 .pipe(dest('./app'));
 };
 
 const scssBuild = () => {
-   return src('./src/scss/style.scss')
-        .pipe(sass({
-            outputStyle:'compressed'
-        }))
-        .pipe(removeCommentsCss())
-        .pipe(autoprefixer())
-        .pipe(cleanCSS({
-            level: 2
-        }))
-        .pipe(concat('./css/style.css'))
-        .pipe(dest('./app'));
+	 return src('./src/scss/style.scss')
+		.pipe(sass({
+			outputStyle:'compressed'
+		}))
+		.pipe(removeCommentsCss())
+		.pipe(autoprefixer())
+		.pipe(cleanCSS({
+			level: 2
+		}))
+		.pipe(concat('./css/style.css'))
+		.pipe(dest('./app'));
 };
 
 
 const fonts = () => {
-    return src("./src/fonts/*")
-        .pipe(dest('./app/fonts'));
+	return src("./src/fonts/*")
+		.pipe(dest('./app/fonts'));
 };
 
 
 const clear = () => {
-    return del('./app');
+	return del('./app');
 };
 
 
 const serveBuild = () => {
-    sync.init({
-        server: './app/'
-    });
+	sync.init({
+		server: './app/'
+	});
 }
 
 
 const serve = () => {
-    sync.init({
-        server: './app/'
-    });
+	sync.init({
+		server: './app/'
+	});
 
-    watch('./src/index.html',			series(htmlDev)).on('change', sync.reload);
-    watch("./src/js/**/*.js",	        series(scriptsDev)).on('change', sync.reload);
-    watch('./src/scss/**/*.scss',		series(scssDev)).on('change', sync.reload);
+	watch('./src/index.html',			series(htmlDev)).on('change', sync.reload);
+	watch("./src/js/**/*.js",	        series(scriptsDev)).on('change', sync.reload);
+	watch('./src/scss/**/*.scss',		series(scssDev)).on('change', sync.reload);
 };
 
 

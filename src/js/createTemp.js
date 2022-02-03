@@ -6,23 +6,14 @@ import {
 	REPLACE_SUBSTRINGS_ACTIVE_CLASS,
 
 	TABLE,
-	COMMON_CSS,
-	GET_REQUESTED_CSS,
-	SAME_VALUES_PROPERTIES,
-	REMOVED_PROPERTY,
 	ACTIVE_CLASSES_BUTTON,
-	REPLACEMENTS_CSS,
 	COMMON_JS,
 } from "./constants.js";
-
-import { matrixTransformation } from "./matrixTransformation.js";
 
 import { changeTitleBtnCopy } from "./handlerCopy.js";
 
 
 let activeClassAtBtn = false;
-
-const stylesToBeRemoved = {};
 
 
 export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
@@ -58,48 +49,62 @@ export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 };
 
 
-const buildCss_FromTemp = ( temp, foundCss ) => {
-	const keysReplacementsCSS = Object.keys(REPLACEMENTS_CSS);
-	keysReplacementsCSS.forEach((keyReplaceCSS) => {
-		let property = foundCss;
-
-		const pathToProperty = REPLACEMENTS_CSS[keyReplaceCSS];
-		const partsPathToProperty = pathToProperty.split(".");
-
-		partsPathToProperty.forEach((partPath, index) => {
-			property = property[partPath];
-		});
-
-		temp = temp.replace(keyReplaceCSS.trim(), property);
-	});
-
-	return temp;
-};
-
 export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
-	let templActiveClass = false;
-
 	const nameBtn = tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn").classList[1];
 
-	const foundCss = pullsStylesBtn(
-		tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn")
-	);
+	let blankCss = cssBuild(nameBtn);
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
-
-	let blankCss = buildCss_FromTemp(COMMON_CSS, foundCss);
-	blankCss = cleaningCss(blankCss);
-	if ( activeClassAtBtn ) {
-		templActiveClass = findCssAtActiveClassBtn(activeClassAtBtn);
-		blankCss += `\n${templActiveClass}`;
-	};
 
 	let readyCss = buildReadyTemp_Hljs(blankCss, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "css");
 
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ demo-code }}/, readyCss);
 
 	return newTempCodeForDemo;
+};
+
+const cssBuild = (nameBtn) => {
+	let blankCss = "";
+
+	const styleSheets = Array.from(document.styleSheets).filter(
+		(styleSheet) => !styleSheet.href || styleSheet.href.startsWith(window.location.origin)
+	);
+
+	for ( let style of styleSheets ) {
+		if ( style instanceof CSSStyleSheet && style.cssRules ) {
+			if ( style.href && style.href.split("/")[style.href.split("/").length - 1] === "style.css" ) {
+				for ( let index = 0; index < style.cssRules.length; index++ ) {
+					if ( style.cssRules[index].cssText.includes(nameBtn) ) {
+						let readyCSS = style.cssRules[index].cssText;
+
+						const is_activeClass = is_ActiveClass_AtCss(readyCSS, nameBtn);
+						if ( is_activeClass ) {
+							continue;
+						};
+
+						for ( let indexKey = 0; indexKey < Object.keys(REPLACE_SUBSTRINGS_ACTIVE_CLASS).length; indexKey++ ) {
+							readyCSS = readyCSS.replace(
+								REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][0], REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][1]
+							);
+						};
+
+						blankCss += `${readyCSS}\n`;
+					};
+				};
+			};
+		};
+	};
+
+	return blankCss;
+};
+
+const is_ActiveClass_AtCss = (textCss, nameBtn) => {
+	for ( let index = 1; index < ACTIVE_CLASSES_BUTTON[nameBtn] + 1; index++ ) {
+		if ( textCss.includes(`${nameBtn}-${index}`) ) {
+			return true;
+		};
+	};
 };
 
 const findCssAtActiveClassBtn = (activeClassAtBtn) => {
@@ -160,7 +165,7 @@ export const createTempDemo_ForDemo = (temp, nameBtn) => {
 				<div class="demo-code__content-item-add">
 					<button type="button" data-class-btn="${nameBtn + "-"}${numberClass + 1}" class="demo-code__content-item-add-btn">
 						<svg height="24" fill="#FFFFFF" viewBox="0 0 16 16" width="24">
-							<path d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
+						<path d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
 						</svg>
 					</button>
 					<div class="demo-code__content-item-add-back-title">
@@ -262,7 +267,8 @@ export const checkActiveClass_AtBtn = (currentBtn) => {
 };
 
 const addActiveClassBtn_AfterReCreation = (currentBtn, activeClassAtBtn) => {
-	const activeBtnAddedClass = currentBtn.closest(".example__item").querySelector(`.demo-code__content-item-btn[data-class-btn="${activeClassAtBtn}"]`);
+	const activeBtnAddedClass = currentBtn.closest(".example__item")
+					.querySelector(`.demo-code__content-item-btn[data-class-btn="${activeClassAtBtn}"]`);
 	activeBtnAddedClass.classList.add("demo-code__content-item-btn--active");
 };
 
@@ -299,135 +305,4 @@ export function checksIfBlockIsOutOfWindow(block) {
 	} else if ( styleBlock.x <= NUMBER_CHECK_BORDER_OF_SCREEN ) {
 		block.closest(".demo-code").style.right = `-${Math.abs(styleBlock.x) + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
 	}
-};
-
-
-const pullsStylesBtn_Span_PseudoElements = (el) => {
-	/* Находит стили псевдо-элементов у элемента span  */
-
-	const foundCss = {
-		"before_after": {},
-		"before": {},
-		"after": {}
-	};
-
-	for ( let property in GET_REQUESTED_CSS.span_before ) {
-		foundCss["before"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_before[property]);
-
-		if ( property === "transform" && foundCss["before"]["transform"] !== "none" ) {
-			foundCss["before"]["transform"] = matrixTransformation(foundCss["before"]["transform"]);
-		};
-	};
-
-	for ( let property in GET_REQUESTED_CSS.span_after ) {
-		foundCss["after"][property] = getComputedStyle(el, ":after").getPropertyValue(GET_REQUESTED_CSS.span_after[property]);
-
-		if ( property === "transform" && foundCss["after"]["transform"] !== "none" ) {
-			foundCss["after"]["transform"] = matrixTransformation(foundCss["after"]["transform"]);
-		};
-	};
-
-	for ( let property in GET_REQUESTED_CSS.span_bef_af ) {
-		foundCss["before_after"][property] = getComputedStyle(el, ":before").getPropertyValue(GET_REQUESTED_CSS.span_bef_af[property]);
-	};
-
-	return foundCss;
-};
-
-const pullsStylesBtn_Span = (el) => {
-	/* Находит стили у элемента span  */
-
-	const foundCss = {};
-
-	foundCss[GET_REQUESTED_CSS.span.width] = getComputedStyle(el).getPropertyValue(GET_REQUESTED_CSS.span.width);
-	foundCss[GET_REQUESTED_CSS.span.height] = getComputedStyle(el).getPropertyValue(GET_REQUESTED_CSS.span.height);
-
-	if ( parseInt(getComputedStyle(el).getPropertyValue(GET_REQUESTED_CSS.span.height)) <= 0 ) {
-		stylesToBeRemoved["height"] = true;
-	};
-
-	return foundCss;
-};
-
-function pullsStylesBtn(btn) {
-	/* Находит все стили кнопки (по обьекту "GET_REQUESTED_CSS") и возвращает обьект.  */
-
-	let foundCss = {
-		"span": {},
-		"before_after": {},
-		"span_before": {},
-		"span_after": {}
-	};
-
-	const span = btn.querySelector("span");
-	const cssSpanPseudoElements = pullsStylesBtn_Span_PseudoElements(span);
-
-	foundCss[GET_REQUESTED_CSS.padding] = getComputedStyle(btn).getPropertyValue(GET_REQUESTED_CSS.padding);
-	foundCss["span"] = pullsStylesBtn_Span(span);
-	foundCss["span_before"] = cssSpanPseudoElements.before;
-	foundCss["span_after"] = cssSpanPseudoElements.after;
-	foundCss["before_after"] = cssSpanPseudoElements.before_after;
-
-	foundCss = checkSameValuesForProperties(foundCss);
-	foundCss = removesEmptyProperties(foundCss);
-
-	return foundCss;
-};
-
-
-function checkSameValuesForProperties(foundCss) {
-	const propertiesSpan = Object.keys(foundCss.span);
-
-	for ( const property in foundCss.before_after ) {
-		if ( SAME_VALUES_PROPERTIES.includes(property) ) {
-			const propertyValue_span = parseFloat(foundCss.span[property]);
-			const propertyValue_pseudo = parseFloat(foundCss.before_after[property]);
-
-			if ( propertyValue_span === propertyValue_pseudo ) {
-				foundCss.before_after[property] = "100%";
-			} else {
-				const percent = Math.round(propertyValue_pseudo / (propertyValue_span / 100));
-
-				if ( !isFinite(percent) ) {
-					continue;
-				};
-
-				foundCss.before_after[property] = `${percent}%`;
-			};
-		};
-	};
-
-	return foundCss;
-};
-
-function removesEmptyProperties(foundCss) {
-
-	const checkProperty = (obj) => {
-		for ( const property in obj ) {
-			if ( REMOVED_PROPERTY.includes(property) && obj[property] === "none" ) {
-				delete obj[property];
-				stylesToBeRemoved["transform"] = true;
-			};
-		};
-	};
-
-	checkProperty(foundCss.span_after);
-	checkProperty(foundCss.span_before);
-
-	return foundCss;
-};
-
-function cleaningCss(blankCss) {
-	const propertyCss = Object.keys(stylesToBeRemoved);
-
-	propertyCss.forEach((property) => {
-		if ( stylesToBeRemoved[property] ) {
-			blankCss = blankCss.replaceAll(`\t${property}: 0px;\n`, "");
-			blankCss = blankCss.replaceAll(`\t${property}: undefined;\n`, "");
-		};
-
-		delete stylesToBeRemoved[property];
-	});
-
-	return blankCss;
 };
