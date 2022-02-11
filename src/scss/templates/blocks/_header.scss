@@ -1,9 +1,27 @@
 .header {
 	padding: 20px 0;
 
+	.btn-settings {
+		position: absolute;
+		right: 0;
+		z-index: 1;
+
+		svg path {
+			transition: all $animate ease;
+		}
+
+		&:hover {
+			svg path {
+				fill: $primary-color-1;
+			}
+		}
+	}
+
 	&__content {
 		display: flex;
 		justify-content: center;
+
+		position: relative;
 
 		&-title {
 			position: relative;

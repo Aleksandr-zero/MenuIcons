@@ -10,7 +10,7 @@ import {
 	COMMON_JS,
 } from "./constants.js";
 
-import { changeTitleBtnCopy } from "./handlerCopy.js";
+import { changeTitleBtnCopy } from "./handler/copy.js";
 
 
 let activeClassAtBtn = false;

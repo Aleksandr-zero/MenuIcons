@@ -114,8 +114,8 @@ const serve = () => {
 		server: './app/'
 	});
 
-	watch('./src/index.html',			series(htmlDev)).on('change', sync.reload);
-	watch("./src/js/**/*.js",	        series(scriptsDev)).on('change', sync.reload);
+	watch('./src/**/*.html',				series(htmlDev)).on('change', sync.reload);
+	watch("./src/js/**/*.js",	      series(scriptsDev)).on('change', sync.reload);
 	watch('./src/scss/**/*.scss',		series(scssDev)).on('change', sync.reload);
 };
 

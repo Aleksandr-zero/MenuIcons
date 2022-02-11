@@ -5,6 +5,10 @@ import {
 	TEMP_DEMO
 } from "./templates/temp.js";
 
+import { getSettingsUser } from "./settings/settings.js";
+
+
+export const SETTINGS = getSettingsUser();
 
 export const NUMBER_MOVE_BORDER_OF_SCREEN = 50; // px
 export const NUMBER_CHECK_BORDER_OF_SCREEN = 10; // px

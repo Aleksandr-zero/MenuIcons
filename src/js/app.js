@@ -1,5 +1,6 @@
 import {
-	TABLE
+	TABLE,
+	SETTINGS
 } from "./constants.js";
 
 import {
@@ -19,10 +20,13 @@ import {
 	cleanValuesAtClosing,
 } from "./createTemp.js";
 
-import { addEvent_CopyText } from "./handlerCopy.js";
+import { addEvent_CopyText } from "./handler/copy.js";
+
+import { addEventInput } from "./settings/settings.js";
 
 
 hljs.highlightAll();
+setCheckedInputSettings();
 
 
 const blockExample = document.querySelector(".example");
@@ -175,3 +179,26 @@ exampleItems.forEach((item) => {
 	const btn = item.querySelector(".example__item-content-btn");
 	btn.addEventListener("click", changeMenuDemo);
 });
+
+
+const btnOpenSettings = document.querySelector(".btn-settings");
+const blockSettings = document.querySelector(".settings");
+
+btnOpenSettings.addEventListener("click", () => {
+	blockSettings.classList.toggle("settings--active");
+});
+
+
+const inputsSettings = document.querySelectorAll(".input-settings");
+addEventInput(inputsSettings);
+
+
+function setCheckedInputSettings() {
+	document.querySelectorAll(".input-settings").forEach((input) => {
+		const value = input.value.split("-")[1];
+		
+		if ( value === SETTINGS["color"] ) {
+			input.checked = true;
+		};
+	});
+};

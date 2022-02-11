@@ -11,9 +11,10 @@
 
 // TEMPLATES
 @import "./templates/blocks/header";
+@import "./templates/blocks/settings";
 @import "./templates/blocks/example";
 @import "./templates/blocks/footer";
-@import "./templates/blocks/open_menu";
+@import "./templates/blocks/openMenu";
 
 @import "./templates/icons/cake";
 @import "./templates/icons/candy_box";
@@ -26,6 +27,6 @@
 @import "./templates/icons/meatballs";
 @import "./templates/icons/stairs";
 @import "./templates/icons/strawberry";
-@import "./templates/icons/veggie_burger";
+@import "./templates/icons/veggieBurger";
 
 @import "./templates/openMenu/common_temp";
