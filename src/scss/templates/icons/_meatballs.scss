@@ -42,13 +42,13 @@
 			border-radius: 4px;
 
 			&::before {
-				top: -3px;
+				top: -2.5px;
 				left: 50%;
 				transform: translateX(-50%);
 			}
 
 			&::after {
-				bottom: -3px;
+				bottom: -2.5px;
 				right: 50%;
 				transform: translateX(50%);
 			}

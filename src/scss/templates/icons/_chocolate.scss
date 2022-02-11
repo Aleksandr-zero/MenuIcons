@@ -85,4 +85,26 @@
 			}
 		}
 	}
+
+	&.btn-menu-chocolate-3 {
+		span {
+			background-color: transparent;
+			border: 2px solid $primary-color-3;
+
+			&::after,
+			&::before {
+				background-color: transparent;
+				border: 2px solid $primary-color-3;	
+				top: -2px;
+			}
+
+			&::before {
+				left: -20px;
+			}
+
+			&::after {
+				right: -20px;
+			}
+		}
+	}
 }

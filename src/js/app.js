@@ -161,10 +161,8 @@ const openMenuDemo = (currentItem) => {
 	addEventClickShowCode(blockTempContent);
 };
 
-const changeMenuDemo = () => {
+const changeMenuDemo = (event) => {
 	// Открывает и закрывает меню демонстрации.
-
-	const typeBtn = event.currentTarget.dataset.type;
 	const currentItem = event.currentTarget.closest(".example__item");
 
 	currentItem.classList.contains("example-item-active") ? closeMenuDemo() : openMenuDemo(currentItem);
@@ -175,6 +173,5 @@ const exampleItems = document.querySelectorAll(".example__item");
 
 exampleItems.forEach((item) => {
 	const btn = item.querySelector(".example__item-content-btn");
-
 	btn.addEventListener("click", changeMenuDemo);
 });

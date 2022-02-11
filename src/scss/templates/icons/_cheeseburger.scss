@@ -47,4 +47,22 @@
 			}
 		}
 	}
+
+	&.btn-menu-cheeseburger-2 {
+		span {
+			&::before {
+				top: -2.5px;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+
+			&:first-child {
+				top: 5px;
+			}
+			
+			&:last-child {
+				bottom: 5px;
+			}
+		}
+	}
 }

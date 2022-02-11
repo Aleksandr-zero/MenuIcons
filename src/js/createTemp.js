@@ -43,8 +43,9 @@ export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
 
 	currentMenuIconTemp = currentMenuIconTemp.innerHTML.trim();
 
+	const regCloseTag = new RegExp("</span>", "g")
 	currentMenuIconTemp = currentMenuIconTemp.replace(/<span>/g, "\n  <span>");
-	currentMenuIconTemp = currentMenuIconTemp.replace(`</span>`, "</span>\n");
+	currentMenuIconTemp = currentMenuIconTemp.replace(regCloseTag, "</span>\n");
 
 	return currentMenuIconTemp;
 };
@@ -139,12 +140,12 @@ const findCssAtActiveClassBtn = (activeClassAtBtn) => {
 		};
 	};
 
-	templActiveClass = chengeSelectorActiveClass(templActiveClass, activeClassAtBtn);
+	templActiveClass = chengeSelectorActiveClass(templActiveClass);
 
 	return templActiveClass.trim();
 };
 
-const chengeSelectorActiveClass = (cssText, nameBtn) => {
+const chengeSelectorActiveClass = (cssText) => {
 	cssText = cssText.replace(
 		/[a-z](-[1-9])/g, "--active"
 	);
@@ -264,7 +265,7 @@ export const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveCl
 };
 
 export const checkActiveClass_AtBtn = (currentBtn) => {
-	/* Проверяет активный класс у наличи кнопки, в случае true добавляет в шаблон */
+	/* Проверяет активный класс у наличии кнопки, в случае true добавляет в шаблон */
 
 	let activeClassAtBtn = false;
 	const classesAtCurrentBtn = currentBtn.classList;
@@ -308,7 +309,6 @@ function buildReadyTemp_Hljs(baseTemp, regArr, regReplaceArr, languageHljs) {
 };
 
 export function checksIfBlockIsOutOfWindow(block) {
-	const widthWindow = window.innerWidth;
 	const widtnBody = document.querySelector("body").clientWidth
 	const widthWindow_WithScroll = document.documentElement.scrollWidth;
 	const widthWindow_Browser = widthWindow_WithScroll - (widthWindow_WithScroll - widtnBody);
@@ -316,12 +316,12 @@ export function checksIfBlockIsOutOfWindow(block) {
 	const styleBlock = block.getBoundingClientRect();
 
 	if ( styleBlock.x + styleBlock.width + NUMBER_CHECK_BORDER_OF_SCREEN >= widthWindow_Browser ) {
-		const positionLeft_ToExitWindow = (widthWindow_WithScroll - widthWindow) + widthWindow - widtnBody;
+		const positionLeft_ToExitWindow = (styleBlock.x + styleBlock.width + NUMBER_CHECK_BORDER_OF_SCREEN) - widthWindow_Browser;
 		block.closest(".demo-code").style.left = `-${positionLeft_ToExitWindow + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
 
 	} else if ( styleBlock.x <= NUMBER_CHECK_BORDER_OF_SCREEN ) {
 		block.closest(".demo-code").style.right = `-${Math.abs(styleBlock.x) + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
-	}
+	};
 };
 
 

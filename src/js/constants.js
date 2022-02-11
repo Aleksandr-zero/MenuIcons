@@ -33,11 +33,11 @@ export const ACTIVE_CLASSES_BUTTON = {
 	"btn-menu-fries": 2,
 	"btn-menu-strawberry": 2,
 	"btn-menu-stairs": 2,
-	"btn-menu-cheeseburger": 1,
-	"btn-menu-candy_box": 2,
+	"btn-menu-cheeseburger": 2,
+	"btn-menu-candy_box": 3,
 	"btn-menu-kebab": 1,
 	"btn-menu-meatballs": 1,
-	"btn-menu-chocolate": 2,
+	"btn-menu-chocolate": 3,
 	"btn-menu-cake": 2,
 };
 
