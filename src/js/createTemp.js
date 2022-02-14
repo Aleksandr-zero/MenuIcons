@@ -12,6 +12,8 @@ import {
 
 import { changeTitleBtnCopy } from "./handler/copy.js";
 
+import { setColor } from "./handler/color.js";
+
 
 let activeClassAtBtn = false;
 let cssForActiveClass = "";
@@ -55,6 +57,7 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 	const nameBtn = tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn").classList[1];
 
 	let blankCss = cssBuild(nameBtn);
+	blankCss = setColor(blankCss);
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);

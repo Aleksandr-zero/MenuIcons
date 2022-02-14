@@ -8,13 +8,22 @@
 					<div class="settings__content-item-wrapper">
 						<ul class="settings__content-item-params">
 							<li class="settings__content-item-param">
-								<input checked label="rgb" value="color-rgb" id="color-1" name="color" type="radio" class="settings__content-item-param-input input-settings">
+								<input checked label="rgb" data-set-settings="color" value="rgb" id="color-1" name="color" type="radio" class="settings__content-item-param-input input_radio-settings">
 							</li>
 							<li class="settings__content-item-param">
-								<input label="hsl" value="color-hsl" id="color-2" name="color" type="radio" class="settings__content-item-param-input input-settings">
+								<input label="hsl" data-set-settings="color" value="hsl" id="color-2" name="color" type="radio" class="settings__content-item-param-input input_radio-settings">
 							</li>
 							<li class="settings__content-item-param">
-								<input label="hex" value="color-hex" id="color-3" name="color" type="radio" class="settings__content-item-param-input input-settings">
+								<input label="hex" data-set-settings="color" value="hex" id="color-3" name="color" type="radio" class="settings__content-item-param-input input_radio-settings">
+							</li>
+							<li class="settings__content-item-param">
+								<h5 class="settings__content-item-param-title">Main color</h5>
+								<input data-set-settings="color_sets" type="text" class="settings__content-item-param-sets_color input_text-settings" placeholder="Example: 43, 101, 217">
+								<div class="settings__content-item-param-text">
+									<p>
+										Set according to your base property! (Value)
+									</p>
+								</div>
 							</li>
 						</ul>
 					</div>

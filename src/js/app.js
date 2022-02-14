@@ -22,11 +22,15 @@ import {
 
 import { addEvent_CopyText } from "./handler/copy.js";
 
-import { addEventInput } from "./settings/settings.js";
+import {
+	addEventInputRadio,
+	addEventInputText
+} from "./settings/settings.js";
 
 
 hljs.highlightAll();
-setCheckedInputSettings();
+setCheckedInputRadioSettings();
+setValurInputTextSettings();
 
 
 const blockExample = document.querySelector(".example");
@@ -189,16 +193,28 @@ btnOpenSettings.addEventListener("click", () => {
 });
 
 
-const inputsSettings = document.querySelectorAll(".input-settings");
-addEventInput(inputsSettings);
+const inputsRadioSettings = document.querySelectorAll(".input_radio-settings");
+const inputsTextSettings = document.querySelectorAll(".input_text-settings");
+addEventInputRadio(inputsRadioSettings);
+addEventInputText(inputsTextSettings);
 
 
-function setCheckedInputSettings() {
-	document.querySelectorAll(".input-settings").forEach((input) => {
-		const value = input.value.split("-")[1];
+function setCheckedInputRadioSettings() {
+	document.querySelectorAll(".input_radio-settings").forEach((input) => {
+		const value = input.value;
 		
 		if ( value === SETTINGS["color"] ) {
 			input.checked = true;
+		};
+	});
+};
+
+function setValurInputTextSettings() {
+	document.querySelectorAll(".input_text-settings").forEach((input) => {
+		const data = input.dataset.setSettings;
+
+		if ( data in SETTINGS ) {
+			input.value = SETTINGS["color_sets"];
 		};
 	});
 };
