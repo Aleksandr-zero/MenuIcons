@@ -13,6 +13,7 @@ import {
 import { changeTitleBtnCopy } from "./handler/copy.js";
 
 import { setColor } from "./handler/color.js";
+import { setAnimation } from "./handler/animation.js";
 
 
 let activeClassAtBtn = false;
@@ -58,6 +59,7 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 
 	let blankCss = cssBuild(nameBtn);
 	blankCss = setColor(blankCss);
+	blankCss = setAnimation(blankCss);
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);

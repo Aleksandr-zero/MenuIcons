@@ -28,7 +28,7 @@ export function setColor(css) {
   const setsColor = SETTINGS["color"];
   const rgb = css.match(/rgb[(](\d{1,3},\s\d{1,3},\s\d{1,3})[)]/)[1];
 
-  if ( "color_sets" in SETTINGS ) {
+  if ( "color_sets" in SETTINGS && SETTINGS["color_sets"] ) {
     if ( setsColor === "hex" ) css = css.replace(rgbReg, setCharToHex(SETTINGS["color_sets"]))
     else if ( setsColor === "hsl" ) css = css.replace(rgbReg, `hsl(${SETTINGS["color_sets"]})`)
     else if ( setsColor === "rgb" ) css = css.replace(rgbReg, `rgb(${SETTINGS["color_sets"]})`);

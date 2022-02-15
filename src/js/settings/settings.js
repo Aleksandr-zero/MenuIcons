@@ -1,9 +1,9 @@
 import { SETTINGS } from "../constants.js";
 
 
-function setSettings(input) {
-  const setsParam = input.dataset.setSettings;
-  const setsValue = input.value.trim();
+function setSettings(block) {
+  const setsParam = block.dataset.setSettings;
+  const setsValue = block.value.trim();
 
   localStorage.setItem(setsParam, setsValue);
 
@@ -20,6 +20,8 @@ export function getSettingsUser() {
 
   settings["color"] = localStorage.getItem("color");
   settings["color_sets"] = localStorage.getItem("color_sets");
+  settings["animation_delay"] = localStorage.getItem("animation_delay");
+  settings["function_timing"] = localStorage.getItem("function_timing");
 
   return settings;
 };
@@ -36,6 +38,14 @@ export function addEventInputRadio(inputs) {
 export function addEventInputText(inputs) {
   inputs.forEach((input) => {
     input.addEventListener("focusout", (event) => {
+      setSettings(event.currentTarget);
+    });
+  });
+};
+
+export function addEventSelect(selects) {
+  selects.forEach((select) => {
+    select.addEventListener("change", (event) => {
       setSettings(event.currentTarget);
     });
   });

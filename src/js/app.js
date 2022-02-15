@@ -24,13 +24,15 @@ import { addEvent_CopyText } from "./handler/copy.js";
 
 import {
 	addEventInputRadio,
-	addEventInputText
+	addEventInputText,
+	addEventSelect
 } from "./settings/settings.js";
 
 
 hljs.highlightAll();
 setCheckedInputRadioSettings();
-setValurInputTextSettings();
+setValueBlockTextSettings(".input_text-settings");
+setValueBlockTextSettings(".select-settings");
 
 
 const blockExample = document.querySelector(".example");
@@ -195,26 +197,30 @@ btnOpenSettings.addEventListener("click", () => {
 
 const inputsRadioSettings = document.querySelectorAll(".input_radio-settings");
 const inputsTextSettings = document.querySelectorAll(".input_text-settings");
+const selectsSettings = document.querySelectorAll(".select-settings");
 addEventInputRadio(inputsRadioSettings);
 addEventInputText(inputsTextSettings);
+addEventSelect(selectsSettings);
 
 
 function setCheckedInputRadioSettings() {
-	document.querySelectorAll(".input_radio-settings").forEach((input) => {
-		const value = input.value;
-		
-		if ( value === SETTINGS["color"] ) {
-			input.checked = true;
-		};
-	});
+	if ( "color" in SETTINGS && SETTINGS["color"] ) {
+		document.querySelectorAll(".input_radio-settings").forEach((input) => {
+			const value = input.value;
+			
+			if ( value === SETTINGS["color"] ) {
+				input.checked = true;
+			};
+		});
+	};
 };
 
-function setValurInputTextSettings() {
-	document.querySelectorAll(".input_text-settings").forEach((input) => {
-		const data = input.dataset.setSettings;
+function setValueBlockTextSettings(classBlock) {
+	document.querySelectorAll(classBlock).forEach((block) => {
+		const data = block.dataset.setSettings;
 
 		if ( data in SETTINGS ) {
-			input.value = SETTINGS["color_sets"];
+			block.value = SETTINGS[data];
 		};
 	});
 };

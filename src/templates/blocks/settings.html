@@ -6,6 +6,7 @@
 				<li class="settings__content-item">
 					<h4 class="settings__content-item-title">Install basic property of color</h4>
 					<div class="settings__content-item-wrapper">
+						<h5 class="settings__content-item-param-title">Color representation</h5>
 						<ul class="settings__content-item-params">
 							<li class="settings__content-item-param">
 								<input checked label="rgb" data-set-settings="color" value="rgb" id="color-1" name="color" type="radio" class="settings__content-item-param-input input_radio-settings">
@@ -18,12 +19,40 @@
 							</li>
 							<li class="settings__content-item-param">
 								<h5 class="settings__content-item-param-title">Main color</h5>
-								<input data-set-settings="color_sets" type="text" class="settings__content-item-param-sets_color input_text-settings" placeholder="Example: 43, 101, 217">
+								<input data-set-settings="color_sets" type="text" class="settings__content-item-param-input_text input_text-settings" placeholder="Example: 43, 101, 217">
 								<div class="settings__content-item-param-text">
 									<p>
 										Set according to your base property! (Value)
 									</p>
 								</div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="settings__content-item">
+					<h4 class="settings__content-item-title">Animation</h4>
+					<div class="settings__content-item-wrapper">
+						<ul class="settings__content-item-params">
+							<li class="settings__content-item-param">
+								<h5 class="settings__content-item-param-title">Animation duration</h5>
+								<input data-set-settings="animation_delay" type="number" class="settings__content-item-param-input_text input_text-settings" placeholder="0.4">
+								<div class="settings__content-item-param-text">
+									<p>
+										Measured in seconds!
+									</p>
+								</div>
+							</li>
+							<li class="settings__content-item-param">
+								<h5 class="settings__content-item-param-title">Timing function</h5>
+								<select data-set-settings="function_timing" class="settings__content-item-param-select select-settings">
+									<option value="ease" selected>ease</option>
+									<option value="ease-in">ease-in</option>
+									<option value="ease-out">ease-out</option>
+									<option value="ease-in-out">ease-in-out</option>
+									<option value="linear">linear</option>
+									<option value="step-start">step-start</option>
+									<option value="step-end">step-end</option>
+								</select>
 							</li>
 						</ul>
 					</div>
