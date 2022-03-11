@@ -8,6 +8,7 @@ import {
 	retrievesTempPressedBtnOpenDemo,
 	createTempCss_ForDemo,
 	createTempJs_ForDemo,
+	createTempScss_ForDemo,
 
 	createTempDemo_ForDemo,
 	addEventBtns_ForDemoTemp,
@@ -16,7 +17,6 @@ import {
 	removeLastActiveClassBtn,
 	addEventBtn_DeleteCssProperties,
 
-	checksIfBlockIsOutOfWindow,
 	cleanValuesAtClosing,
 } from "./createTemp.js";
 
@@ -28,11 +28,17 @@ import {
 	addEventSelect
 } from "./settings/settings.js";
 
+import {
+	checksIfBlockIsOutOfWindow,
+} from "./utils/index.js";
 
-hljs.highlightAll();
-setCheckedInputRadioSettings();
-setValueBlockTextSettings(".input_text-settings");
-setValueBlockTextSettings(".select-settings");
+
+document.addEventListener("DOMContentLoaded", () => {
+	hljs.highlightAll();
+	setCheckedInputRadioSettings();
+	setValueBlockTextSettings(".input_text-settings");
+	setValueBlockTextSettings(".select-settings");
+});
 
 
 const blockExample = document.querySelector(".example");
@@ -85,7 +91,11 @@ const showsCodeForDemo = (event) => {
 		createBaseTemp(createTempJs_ForDemo, event.currentTarget, typeCode, currentItem);
 		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-javascript"));
 
-	} else if ( typeCode === "demo" ) {
+	} else if ( typeCode === "scss" ) {
+		createBaseTemp(createTempScss_ForDemo, event.currentTarget, typeCode, currentItem);
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-scss"));
+	}
+	else if ( typeCode === "demo" ) {
 		const currentBtn = event.currentTarget.closest(".example__item").querySelector(".example__item-content-btn");
 		const tempDemoHtml = createTempDemo_ForDemo(TABLE[typeCode], currentBtn.classList[1]);
 

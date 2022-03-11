@@ -43,6 +43,14 @@ export const TEMP_JS_DEMO = `
 </pre>
 `;
 
+export const TEMP_SCSS_DEMO = `
+<pre>
+	<code class="language-scss language">
+{{ demo-code }}
+	</code>
+</pre>
+`;
+
 export const TEMP_BTNS_DEMO = `
 <div class="wrapper-demo-code">
 	<div class="demo-code code-demo demo-code--classes">
@@ -78,6 +86,10 @@ export const TEMP_CSS = `
 
 export const TEMP_JS = `
 	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_JS_DEMO)}
+`;
+
+export const TEMP_SCSS = `
+	${commonTemp.replace(/{{ demo-code-type }}/, TEMP_SCSS_DEMO)}
 `;
 
 export const TEMP_DEMO = `

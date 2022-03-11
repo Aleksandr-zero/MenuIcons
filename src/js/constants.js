@@ -2,6 +2,7 @@ import {
 	TEMP_HTML,
 	TEMP_CSS,
 	TEMP_JS,
+	TEMP_SCSS,
 	TEMP_DEMO
 } from "./templates/temp.js";
 
@@ -27,6 +28,7 @@ export const TABLE = {
 	"html": `${TEMP_HTML}`,
 	"css": `${TEMP_CSS}`,
 	"js": `${TEMP_JS}`,
+	"scss": `${TEMP_SCSS}`,
 	"demo": `${TEMP_DEMO}`,
 };
 

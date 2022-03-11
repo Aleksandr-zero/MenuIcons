@@ -1,9 +1,6 @@
 import {
 	ANIMATE,
 	NUMBER_FOR_DELAY_ANIMATE,
-	NUMBER_MOVE_BORDER_OF_SCREEN,
-	NUMBER_CHECK_BORDER_OF_SCREEN,
-	REPLACE_SUBSTRINGS_ACTIVE_CLASS,
 
 	TABLE,
 	ACTIVE_CLASSES_BUTTON,
@@ -15,14 +12,17 @@ import { changeTitleBtnCopy } from "./handler/copy.js";
 import { setColor } from "./handler/color.js";
 import { setAnimation } from "./handler/animation.js";
 
+import {
+	findCss,
+	convertCssToView
+} from "./utils/index.js";
+
 
 let activeClassAtBtn = false;
 let cssForActiveClass = "";
 
 
 export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
-	// Создание шаблона для демонстрации кода.
-
 	tempBtn = hljs.highlight(tempBtn, { language: 'xml' }).value;
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
@@ -33,8 +33,6 @@ export const createTempHtml_ForDemo = (tempBtn, typeTempCode) => {
 };
 
 export const retrievesTempPressedBtnOpenDemo = (pressedBtn) => {
-	// Извлекает html (иконка для меню) при нажатии кнопки для показа кода.
-
 	let currentMenuIconTemp = pressedBtn.closest('.example-item-active').querySelector(".example__item-content-wrapper-btn").cloneNode(true);
 
 	const currentMenuIconBtn = currentMenuIconTemp.querySelector(".example__item-content-btn");
@@ -74,83 +72,19 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 const cssBuild = (nameBtn) => {
 	let blankCss = "";
 
-	const styleSheets = Array.from(document.styleSheets).filter(
-		(styleSheet) => !styleSheet.href || styleSheet.href.startsWith(window.location.origin)
-	);
-
-	for ( let style of styleSheets ) {
-		if ( style instanceof CSSStyleSheet && style.cssRules ) {
-			if ( style.href && style.href.split("/")[style.href.split("/").length - 1] === "style.css" ) {
-				for ( let index = 0; index < style.cssRules.length; index++ ) {
-					if ( style.cssRules[index].cssText.includes(nameBtn) ) {
-						let readyCSS = style.cssRules[index].cssText;
-
-						const is_activeClass = is_ActiveClass_AtCss(readyCSS, nameBtn);
-						if ( is_activeClass ) {
-							continue;
-						};
-
-						for ( let indexKey = 0; indexKey < Object.keys(REPLACE_SUBSTRINGS_ACTIVE_CLASS).length; indexKey++ ) {
-							readyCSS = readyCSS.replace(
-								REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][0], REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][1]
-							);
-						};
-
-						blankCss += `${readyCSS}\n`;
-					};
-				};
-			};
-		};
+	const rawCssArr = findCss(nameBtn);
+	const readyCssArr = convertCssToView(rawCssArr);
+	for ( let i = 0; i < readyCssArr.length; i++ ) {
+		blankCss += `${readyCssArr[i]}\n`;
 	};
 
-	if ( cssForActiveClass ) {
-		blankCss += cssForActiveClass;
-	};
+	if ( cssForActiveClass ) blankCss += cssForActiveClass;
 
 	return blankCss.trim();
 };
 
-const is_ActiveClass_AtCss = (textCss, nameBtn) => {
-	for ( let index = 1; index < ACTIVE_CLASSES_BUTTON[nameBtn] + 1; index++ ) {
-		if ( textCss.includes(`${nameBtn}-${index}`) ) {
-			return true;
-		};
-	};
-};
 
-const findCssAtActiveClassBtn = (activeClassAtBtn) => {
-	let templActiveClass = "";
-
-	const styleSheets = Array.from(document.styleSheets).filter(
-		(styleSheet) => !styleSheet.href || styleSheet.href.startsWith(window.location.origin)
-	);
-
-	for ( let style of styleSheets ) {
-		if ( style instanceof CSSStyleSheet && style.cssRules ) {
-			if ( style.href && style.href.split("/")[style.href.split("/").length - 1] === "style.css" ) {
-				for ( let index = 0; index < style.cssRules.length; index++ ) {
-					if ( style.cssRules[index].cssText.includes(activeClassAtBtn) ) {
-						let readyCSS = style.cssRules[index].cssText;
-
-						for ( let indexKey = 0; indexKey < Object.keys(REPLACE_SUBSTRINGS_ACTIVE_CLASS).length; indexKey++ ) {
-							readyCSS = readyCSS.replace(
-								REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][0], REPLACE_SUBSTRINGS_ACTIVE_CLASS[indexKey][1]
-							);
-						};
-
-						templActiveClass += `${readyCSS}\n`;
-					};
-				};
-			};
-		};
-	};
-
-	templActiveClass = chengeSelectorActiveClass(templActiveClass);
-
-	return templActiveClass.trim();
-};
-
-const chengeSelectorActiveClass = (cssText) => {
+const changeSelectorActiveClass = (cssText) => {
 	cssText = cssText.replace(
 		/[a-z](-[1-9])/g, "--active"
 	);
@@ -165,11 +99,131 @@ export const createTempJs_ForDemo = (tempBtn, typeTempCode) => {
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
 
-	let readyJs = buildReadyTemp_Hljs(COMMON_JS, [/{{ menu-btn-class }}/g, /\t/g], [nameBtn, "  "], "javascript");
+	const readyJs = buildReadyTemp_Hljs(COMMON_JS, [/{{ menu-btn-class }}/g, /\t/g], [nameBtn, "  "], "javascript");
 
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ demo-code }}/, readyJs);
 
 	return newTempCodeForDemo;
+};
+
+
+export const createTempScss_ForDemo = (tempBtn, typeTempCode) => {
+	const nameBtn = tempBtn.closest('.example-item-active').querySelector(".example__item-content-btn").classList[1];
+	const rawCssArr = findCss(nameBtn);
+	const foundCssSelectors = findCssSelectors(nameBtn);
+	const tableScss = createTableScss(foundCssSelectors)
+	
+	let tempScss = buildTempScss(rawCssArr, foundCssSelectors, tableScss);
+	tempScss = setColor(tempScss);
+	tempScss = setAnimation(tempScss);
+	tempScss = buildReadyTemp_Hljs(tempScss, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "scss");
+
+	let newTempCodeForDemo = TABLE[typeTempCode];
+	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);
+	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ demo-code }}/, tempScss);
+
+	return newTempCodeForDemo;
+};
+
+const findCssSelectors = (nameBtn) => {
+	const isActiveClass = ( activeClassAtBtn ) ? true : false;
+	let cssSelectors = findCss(nameBtn, isActiveClass);
+
+	for ( let cssSel = 0; cssSel < cssSelectors.length; cssSel++ ) {
+		const cssSelector = cssSelectors[cssSel];
+		let str = '';
+
+		for ( let i = 0; i < cssSelector.length; i++ ) {
+			const char = cssSelector[i];
+			if ( char !== "{" ) str += char
+			else {
+				cssSelectors[cssSel] = str.trim();
+				str = '';
+				break;
+			};
+		};
+	};
+
+	return cssSelectors;
+};
+
+const createTableScss = (cssSelectors) => {
+	const tableScss = [];
+	const objUnpacking = {};
+
+	for ( let indexSel = 0; indexSel < cssSelectors.length; indexSel++ ) {
+		const cssSelector = cssSelectors[indexSel];
+		const splitCssSelector = cssSelector.split(/\s/g);
+
+		tableScss[indexSel] = splitCssSelector;
+		objUnpacking[indexSel] = {};
+
+		for ( let i = 0; i < tableScss[indexSel].length; i++ ) {
+			const el = tableScss[indexSel][i];
+			objUnpacking[indexSel][i] = el.split(":");
+		};
+
+		tableScss[indexSel] = [];
+
+		const values = Object.values(objUnpacking[indexSel]);
+		values.forEach((value) => {
+			tableScss[indexSel].push(...value.filter(Boolean));
+		});
+		tableScss[indexSel] = [...new Set(tableScss[indexSel])];
+
+		for ( let i = 0; i < tableScss[indexSel].length; i++ ) {
+			const element = tableScss[indexSel][i];
+			if ( element.search(/,+/) !== -1 ) {
+				const repeatElement = tableScss[indexSel][i + 1];
+				tableScss[indexSel][i] += ` ${repeatElement}`;
+
+				tableScss[indexSel].splice(i + 1, 1);
+			};
+		};
+	};
+
+	return tableScss;
+};
+
+const buildTempScss = (rawCssArr, foundCssSelectors, tableScss) => {
+	let readyCss = '';
+	const foundCss = [];
+
+	foundCssSelectors.forEach((cssSelector, index) => {
+		let rawCssSelector = rawCssArr[index];
+		rawCssSelector = rawCssSelector.replace(cssSelector, "");
+		rawCssSelector = rawCssSelector.replace(/\s+[{]+\s/g, "");
+		rawCssSelector = rawCssSelector.replace(/\s[}]+/g, "");
+		
+		foundCss.push(rawCssSelector);
+	});
+
+	tableScss.forEach((selectors, index) => {
+		const currentLengthArr = selectors.length;
+		const tabMultiplier = "\t".repeat(currentLengthArr);
+		const countTab = `\n${tabMultiplier}`;
+
+		if ( index === 0 ) {
+			readyCss += `${selectors[currentLengthArr - 1]} {${countTab}${foundCss[index].replace(/;\s+/g, ";" + countTab)}\n`;
+		}
+		else {
+			let readyStr = `\n${"\t".repeat(currentLengthArr - 1)}${selectors[currentLengthArr - 1]}`;
+
+			if ( tableScss[index + 1] && currentLengthArr !== tableScss[index + 1].length ) {
+				readyStr += ` {${countTab}${foundCss[index].replace(/;\s+/g, ";" + countTab)}\n`;
+			} else {
+				readyStr += ` {${countTab}${foundCss[index].replace(/;\s+/g, ";" + countTab)}\n${'\t'.repeat(currentLengthArr - 1)}}\n`;
+			};
+			if ( tableScss.length === index + 1 ) readyStr += `${'\t'.repeat(currentLengthArr - 2)}}\n}`;
+
+			readyCss += readyStr;
+		};
+	});
+
+	readyCss = readyCss.replace(/after/g, "&::after");
+	readyCss = readyCss.replace(/before/g, "&::before");
+
+	return readyCss.trim();
 };
 
 
@@ -186,7 +240,7 @@ export const createTempDemo_ForDemo = (temp, nameBtn) => {
 				<div class="demo-code__content-item-add">
 					<button type="button" data-class-btn="${nameBtn + "-"}${numberClass + 1}" class="demo-code__content-item-add-btn">
 						<svg height="24" fill="#FFFFFF" viewBox="0 0 16 16" width="24">
-						<path d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
+							<path d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>
 						</svg>
 					</button>
 					<div class="demo-code__content-item-add-back-title">
@@ -236,13 +290,17 @@ export const addEventBtns_ForDemoTemp = (btns, currentBtn) => {
 };
 
 export const addEventBtns_ForDemoTemp_AddActiveCLass = (btns) => {
-	/* Добавляет события на кнопки - добавление активного класса в css-свойства */
-
 	btns.forEach((btn) => {
 		btn.addEventListener("click", (event) => {
 			const activeClass = event.currentTarget.dataset.classBtn;
 			activeClassAtBtn = activeClass;
-			cssForActiveClass = findCssAtActiveClassBtn(activeClassAtBtn);
+
+			const rawCssArr = findCss(activeClassAtBtn, true);
+			const readyCssArr = convertCssToView(rawCssArr);
+			for ( let i = 0; i < readyCssArr.length; i++ ) {
+				cssForActiveClass += `${readyCssArr[i]}\n`;
+			};
+			cssForActiveClass = changeSelectorActiveClass(cssForActiveClass);
 
 			const titleHelp = event.currentTarget.closest(".demo-code__content-item-add").querySelector(".demo-code__content-item-add-title");
 			changeTitleBtnCopy(titleHelp, "Active class added", titleHelp.innerHTML);
@@ -270,8 +328,6 @@ export const removeLastActiveClassBtn = (btn, nameClassBtn, currentScoreActiveCl
 };
 
 export const checkActiveClass_AtBtn = (currentBtn) => {
-	/* Проверяет активный класс у наличии кнопки, в случае true добавляет в шаблон */
-
 	let activeClassAtBtn = false;
 	const classesAtCurrentBtn = currentBtn.classList;
 	const nameClassBtn = `btn-menu-${currentBtn.dataset.type}`;
@@ -311,22 +367,6 @@ function buildReadyTemp_Hljs(baseTemp, regArr, regReplaceArr, languageHljs) {
 	readyTemp = hljs.highlight(readyTemp, { language: languageHljs }).value;
 
 	return readyTemp;
-};
-
-export function checksIfBlockIsOutOfWindow(block) {
-	const widtnBody = document.querySelector("body").clientWidth
-	const widthWindow_WithScroll = document.documentElement.scrollWidth;
-	const widthWindow_Browser = widthWindow_WithScroll - (widthWindow_WithScroll - widtnBody);
-
-	const styleBlock = block.getBoundingClientRect();
-
-	if ( styleBlock.x + styleBlock.width + NUMBER_CHECK_BORDER_OF_SCREEN >= widthWindow_Browser ) {
-		const positionLeft_ToExitWindow = (styleBlock.x + styleBlock.width + NUMBER_CHECK_BORDER_OF_SCREEN) - widthWindow_Browser;
-		block.closest(".demo-code").style.left = `-${positionLeft_ToExitWindow + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
-
-	} else if ( styleBlock.x <= NUMBER_CHECK_BORDER_OF_SCREEN ) {
-		block.closest(".demo-code").style.right = `-${Math.abs(styleBlock.x) + NUMBER_MOVE_BORDER_OF_SCREEN}px`;
-	};
 };
 
 
