@@ -1,1 +1,237 @@
-var factory;factory=function(){"use strict";var e='\n<div class="demo-code {{ code-type }}">\n\t<div class="demo-code__container">\n\t\t<div class="demo-code__content">\n\t\t\t{{ demo-code-type }}\n\t\t</div>\n\t\t<div class="demo-code__container-back-btn copy">\n\t\t\t<div class="demo-code__container-back-btn-wrapper">\n\t\t\t\t<h4 class="demo-code__container-back-btn-title">Copy</h4>\n\t\t\t\t<button type="button" class="demo-code__container-btn-copy">\n\t\t\t\t\t<svg fill="#ffffff" height="20" viewBox="0 0 16 16" width="20">\n\t\t\t\t\t\t<path d="M5.75 1a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75v-3a.75.75 0 00-.75-.75h-4.5zm.75 3V2.5h3V4h-3zm-2.874-.467a.75.75 0 00-.752-1.298A1.75 1.75 0 002 3.75v9.5c0 .966.784 1.75 1.75 1.75h8.5A1.75 1.75 0 0014 13.25v-9.5a1.75 1.75 0 00-.874-1.515.75.75 0 10-.752 1.298.25.25 0 01.126.217v9.5a.25.25 0 01-.25.25h-8.5a.25.25 0 01-.25-.25v-9.5a.25.25 0 01.126-.217z"></path>\n\t\t\t\t\t</svg>\n\t\t\t\t</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n',t="\n\t".concat(e.replace(/{{ demo-code-type }}/,'\n<pre>\n\t<code class="language-html language">\n{{ demo-code }}\n\t</code>\n</pre>\n'),"\n"),n="\n\t".concat(e.replace(/{{ demo-code-type }}/,'\n<pre>\n\t<code class="language-css language">\n{{ demo-code }}\n\t</code>\n</pre>\n'),"\n"),c="\n\t".concat(e.replace(/{{ demo-code-type }}/,'\n<pre>\n\t<code class="language-javascript language">\n{{ demo-code }}\n\t</code>\n</pre>\n'),"\n"),o="\n\t".concat(e.replace(/{{ demo-code-type }}/,'\n<pre>\n\t<code class="language-scss language">\n{{ demo-code }}\n\t</code>\n</pre>\n'),"\n"),a="\n\t".concat('\n<div class="wrapper-demo-code">\n\t<div class="demo-code code-demo demo-code--classes">\n\t\t<div class="demo-code__container">\n\t\t\t<div class="demo-code__container-back-delete">\n\t\t\t\t<div class="demo-code__container-back-delete-wrapper">\n\t\t\t\t\t<button type="button" class="demo-code__container-delete">\n\t\t\t\t\t\t<svg xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF" width="18" height="18" viewBox="0 0 24 24">\n\t\t\t\t\t\t\t<path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"/>\n\t\t\t\t\t\t</svg>\n\t\t\t\t\t</button>\n\t\t\t\t\t<div class="demo-code__content-item-add-back-title">\n\t\t\t\t\t\t<h4 class="demo-code__content-item-add-title">Clear CSS properties</h4>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class="demo-code__content">\n\n\t\t\t</div>\n\t\t</div>\n\t</div>\n</div>\n',"\n");function setSettings(e){var t=e.dataset.setSettings,n=e.value.trim();localStorage.setItem(t,n),function updateSettings(e,t){r[e]=t}(t,n)}var r=function getSettingsUser(){var e={};return e.color=localStorage.getItem("color"),e.color_sets=localStorage.getItem("color_sets"),e.animation_delay=localStorage.getItem("animation_delay"),e.function_timing=localStorage.getItem("function_timing"),e}(),s={0:[/;\s/g,";\n\t"],1:[/{\s/g,"{\n\t"],2:[/\t}/g,"}\n"],3:[/after,\s/g,"after,\n"]},i={html:"".concat(t),css:"".concat(n),js:"".concat(c),scss:"".concat(o),demo:"".concat(a)},l={"btn-menu-hamburger":2,"btn-menu-veggie_burger":2,"btn-menu-hotdog":2,"btn-menu-fries":2,"btn-menu-strawberry":2,"btn-menu-stairs":2,"btn-menu-cheeseburger":2,"btn-menu-candy_box":3,"btn-menu-kebab":1,"btn-menu-meatballs":1,"btn-menu-chocolate":3,"btn-menu-cake":2},d='\nconst menuBtn = document.querySelector(".{{ menu-btn-class }}");\n\nmenuBtn.addEventListener("click", () => {\n\tmenuBtn.classList.toggle("{{ menu-btn-class }}--active");\n});\n'.trim();function _toConsumableArray(e){return function _arrayWithoutHoles(e){if(Array.isArray(e))return _arrayLikeToArray(e)}(e)||function _iterableToArray(e){if("undefined"!=typeof Symbol&&null!=e[Symbol.iterator]||null!=e["@@iterator"])return Array.from(e)}(e)||_unsupportedIterableToArray(e)||function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}()}function _unsupportedIterableToArray(e,t){if(e){if("string"==typeof e)return _arrayLikeToArray(e,t);var n=Object.prototype.toString.call(e).slice(8,-1);return"Object"===n&&e.constructor&&(n=e.constructor.name),"Map"===n||"Set"===n?Array.from(e):"Arguments"===n||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)?_arrayLikeToArray(e,t):void 0}}function _arrayLikeToArray(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,c=new Array(t);n<t;n++)c[n]=e[n];return c}var u=function changeTitleBtnCopy(e,t,n){e.innerHTML=t,setTimeout((function(){e.innerHTML=n}),1500)},m=function copyToClipboard(e){var t=e.currentTarget.closest(".demo-code__container").querySelector(".language"),n=e.currentTarget.closest(".demo-code__container-back-btn-wrapper").querySelector("h4");u(n,"Copied",n.innerHTML);var c=document.createElement("textarea");c.textContent=t.textContent.trim(),document.body.appendChild(c),c.select(),document.execCommand("copy"),document.body.removeChild(c)},f=new RegExp(/rgb[(]\d{1,3},\s\d{1,3},\s\d{1,3}[)]/,"g");function setColor(e){var t=r.color,n=e.match(/rgb[(](\d{1,3},\s\d{1,3},\s\d{1,3})[)]/)[1];if("color_sets"in r&&r.color_sets)"hex"===t?e=e.replace(f,function setCharToHex(e){return"#"!==e[0]&&(e="#".concat(e)),e}(r.color_sets)):"hsl"===t?e=e.replace(f,"hsl(".concat(r.color_sets,")")):"rgb"===t&&(e=e.replace(f,"rgb(".concat(r.color_sets,")")));else if("hex"===t){var c=function rgbToHex(e){return"#"+e.match(/[0-9|.]+/g).map((function(e,t){return 3===t?parseInt(255*parseFloat(e)).toString(16):parseInt(e).toString(16)})).join("")}(n);e=e.replace(f,c)}else if("hsl"===t){var o=n.split(","),a=function rgbToHsl(e,t,n){var c=Math.max(e,t,n),o=c-Math.min(e,t,n),a=1-Math.abs(c+c-o-1),r=o&&(c==e?(t-n)/o:c==t?2+(n-e)/o:4+(e-t)/o);return"hsl(".concat(60*(r<0?r+6:r),", ").concat(a?o/a:0,", ").concat((c+c-o)/2,")")}(o[0],o[1],o[2]);e=e.replace(f,a)}return e}var p=new RegExp(/transition\W\s\D{0,20}\s\d\W\ds\s\D{0,20}\s\d\D/,"g"),v=function setAnimationDelayReg(e){return e.replace(/\d\W\ds/g,"".concat(r.animation_delay,"s"))},g=function setAnimationFuncTimingReg(e){return e.replace(/\sease\s/g," ".concat(r.function_timing," "))};function setAnimation(e){return e=function setAnimationFuncTiming(e){return"function_timing"in r&&r.function_timing&&(e=e.replace(p,g)),e}(e=function setAnimationDelay(e){return"animation_delay"in r&&r.animation_delay&&(e=e.replace(p,v)),e}(e))}function checksIfBlockIsOutOfWindow(e){var t=document.querySelector("body").clientWidth,n=document.documentElement.scrollWidth,c=n-(n-t),o=e.getBoundingClientRect();if(o.x+o.width+10>=c){var a=o.x+o.width+10-c;e.closest(".demo-code").style.left="-".concat(a+50,"px")}else o.x<=10&&(e.closest(".demo-code").style.right="-".concat(Math.abs(o.x)+50,"px"))}var _=function is_ActiveClass_AtCss(e,t){for(var n=1;n<l[t]+1;n++)if(e.includes("".concat(t,"-").concat(n)))return 1},y=function convertCssToView(e){var t=[];return e.forEach((function(e){for(var n=0;n<Object.keys(s).length;n++)e=e.replace(s[n][0],s[n][1]);t.push(e)})),t};function findCss(e,t){var n,c=[],o=function _createForOfIteratorHelper(e,t){var n="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!n){if(Array.isArray(e)||(n=_unsupportedIterableToArray(e))||t&&e&&"number"==typeof e.length){n&&(e=n);var c=0,F=function(){};return{s:F,n:function(){return c>=e.length?{done:1}:{done:0,value:e[c++]}},e:function(e){throw e},f:F}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var o,a=1,r=0;return{s:function(){n=n.call(e)},n:function(){var e=n.next();return a=e.done,e},e:function(e){r=1,o=e},f:function(){try{a||null==n.return||n.return()}finally{if(r)throw o}}}}(Array.from(document.styleSheets).filter((function(e){return!e.href||e.href.startsWith(window.location.origin)})));try{for(o.s();!(n=o.n()).done;){var a=n.value;if(a instanceof CSSStyleSheet&&a.cssRules&&a.href&&"style.css"===a.href.split("/")[a.href.split("/").length-1])for(var r=0;r<a.cssRules.length;r++)if(a.cssRules[r].cssText.includes(e)){var s=a.cssRules[r].cssText;if(_(s,e)&&!t)continue;c.push(s)}}}catch(e){o.e(e)}finally{o.f()}return c}var h=0,b="",S=function createTempHtml_ForDemo(e,t){e=hljs.highlight(e,{language:"xml"}).value;var n=i[t];return n=(n=n.replace(/{{ demo-code }}/,e)).replace(/{{ code-type }}/,"code-".concat(t))},T=function createTempCss_ForDemo(e,t){var n=e.closest(".example-item-active").querySelector(".example__item-content-btn").classList[1],c=x(n);c=setAnimation(c=setColor(c));var o=i[t];o=o.replace(/{{ code-type }}/,"code-".concat(t));var a=buildReadyTemp_Hljs(c,[/{{ name-btn }}/g,/\t/g],[n,"  "],"css");return o=o.replace(/{{ demo-code }}/,a)},x=function cssBuild(e){for(var t="",n=findCss(e),c=y(n),o=0;o<c.length;o++)t+="".concat(c[o],"\n");return b&&(t+=b),t.trim()},A=function createTempJs_ForDemo(e,t){var n=e.closest(".example-item-active").querySelector(".example__item-content-btn").classList[1],c=i[t];c=c.replace(/{{ code-type }}/,"code-".concat(t));var o=buildReadyTemp_Hljs(d,[/{{ menu-btn-class }}/g,/\t/g],[n,"  "],"javascript");return c=c.replace(/{{ demo-code }}/,o)},L=function createTempScss_ForDemo(e,t){var n=e.closest(".example-item-active").querySelector(".example__item-content-btn").classList[1],c=findCss(n),o=C(n),a=q(o),r=k(c,o,a);r=buildReadyTemp_Hljs(r=setAnimation(r=setColor(r)),[/{{ name-btn }}/g,/\t/g],[n,"  "],"scss");var s=i[t];return s=(s=s.replace(/{{ code-type }}/,"code-".concat(t))).replace(/{{ demo-code }}/,r)},C=function findCssSelectors(e){for(var t=findCss(e,h?1:0),n=0;n<t.length;n++)for(var c=t[n],o="",a=0;a<c.length;a++){var r=c[a];if("{"===r){t[n]=o.trim(),o="";break}o+=r}return t},q=function createTableScss(e){for(var t=[],n={},c=function _loop(c){var o=e[c].split(/\s/g);t[c]=o,n[c]={};for(var a=0;a<t[c].length;a++){var r=t[c][a];n[c][a]=r.split(":")}t[c]=[],Object.values(n[c]).forEach((function(e){var n;(n=t[c]).push.apply(n,_toConsumableArray(e.filter(Boolean)))})),t[c]=_toConsumableArray(new Set(t[c]));for(var s=0;s<t[c].length;s++)if(-1!==t[c][s].search(/,+/)){var i=t[c][s+1];t[c][s]+=" ".concat(i),t[c].splice(s+1,1)}},o=0;o<e.length;o++)c(o);return t},k=function buildTempScss(e,t,n){var c="",o=[];return t.forEach((function(t,n){var c=e[n];c=(c=(c=c.replace(t,"")).replace(/\s+[{]+\s/g,"")).replace(/\s[}]+/g,""),o.push(c)})),n.forEach((function(e,t){var a=e.length,r="\t".repeat(a),s="\n".concat(r);if(0===t)c+="".concat(e[a-1]," {").concat(s).concat(o[t].replace(/;\s+/g,";"+s),"\n");else{var i="\n".concat("\t".repeat(a-1)).concat(e[a-1]);n[t+1]&&a!==n[t+1].length?i+=" {".concat(s).concat(o[t].replace(/;\s+/g,";"+s),"\n"):i+=" {".concat(s).concat(o[t].replace(/;\s+/g,";"+s),"\n").concat("\t".repeat(a-1),"}\n"),n.length===t+1&&(i+="".concat("\t".repeat(a-2),"}\n}")),c+=i}})),(c=(c=c.replace(/after/g,"&::after")).replace(/before/g,"&::before")).trim()},w=function removeLastActiveClassBtn(e,t,n){for(var c=0,o=0;l[t]>o;o++)n!==o+1&&e.classList.contains("".concat(t,"-").concat(o+1))&&(e.classList.remove("".concat(t,"-").concat(o+1)),c++);if(c)return 1},E=function addActiveClassBtn_AfterReCreation(e,t){e.closest(".example__item").querySelector('.demo-code__content-item-btn[data-class-btn="'.concat(t,'"]')).classList.add("demo-code__content-item-btn--active")};function buildReadyTemp_Hljs(e,t,n,c){var o=e.replace(t[0],n[0]);return o=o.replace(t[1],n[1]),o=hljs.highlight(o,{language:c}).value}function cleanValuesAtClosing(){b="",h=0}document.addEventListener("DOMContentLoaded",(function(){hljs.highlightAll(),function setCheckedInputRadioSettings(){"color"in r&&r.color&&document.querySelectorAll(".input_radio-settings").forEach((function(e){e.value===r.color&&(e.checked=1)}))}(),setValueBlockTextSettings(".input_text-settings"),setValueBlockTextSettings(".select-settings")}));var B=document.querySelector(".example"),I=B.querySelector(".example__items"),M=document.querySelector(".open-menu-temp");function createBaseTemp(e,t,n,c){var o=e(t,n);c.insertAdjacentHTML("beforeend","\n\t\t".concat(o,"\n\t\t").trim())}var H=function showsCodeForDemo(e){var t=e.currentTarget.dataset.typeCode,n=e.currentTarget.closest(".example-item-active");if(n.querySelector(".code-".concat(t)))return n.querySelector(".code-".concat(t)).remove(),void I.classList.remove("example-items-active");if(n.querySelector(".demo-code")&&n.querySelector(".demo-code").remove(),"html"===t)createBaseTemp(S,function retrievesTempPressedBtnOpenDemo(e){var t=e.closest(".example-item-active").querySelector(".example__item-content-wrapper-btn").cloneNode(1),n=t.querySelector(".example__item-content-btn");w(n,"btn-menu-".concat(n.dataset.type),0),n.classList.remove("example__item-content-btn"),n.removeAttribute("data-type"),t=t.innerHTML.trim();var c=new RegExp("</span>","g");return(t=t.replace(/<span>/g,"\n  <span>")).replace(c,"</span>\n")}(e.currentTarget),t,n),checksIfBlockIsOutOfWindow(n.querySelector(".language-html"));else if("css"===t)createBaseTemp(T,e.currentTarget,t,n),checksIfBlockIsOutOfWindow(n.querySelector(".language-css"));else if("js"===t)createBaseTemp(A,e.currentTarget,t,n),checksIfBlockIsOutOfWindow(n.querySelector(".language-javascript"));else if("scss"===t)createBaseTemp(L,e.currentTarget,t,n),checksIfBlockIsOutOfWindow(n.querySelector(".language-scss"));else if("demo"===t){var c=e.currentTarget.closest(".example__item").querySelector(".example__item-content-btn"),o=function createTempDemo_ForDemo(e,t){var n=document.createElement("ul");n.className="demo-code__content-items";for(var c=0;l[t]>c;c++)n.insertAdjacentHTML("beforeend",'\n\t\t\t<li class="demo-code__content-item">\n\t\t\t\t<button type="button" data-class-btn="'.concat(t+"-").concat(c+1,'" class="demo-code__content-item-btn">\n\t\t\t\t\tActive - ').concat(c+1,'\n\t\t\t\t</button>\n\t\t\t\t<div class="demo-code__content-item-add">\n\t\t\t\t\t<button type="button" data-class-btn="').concat(t+"-").concat(c+1,'" class="demo-code__content-item-add-btn">\n\t\t\t\t\t\t<svg height="24" fill="#FFFFFF" viewBox="0 0 16 16" width="24">\n\t\t\t\t\t\t\t<path d="M7.75 2a.75.75 0 01.75.75V7h4.25a.75.75 0 110 1.5H8.5v4.25a.75.75 0 11-1.5 0V8.5H2.75a.75.75 0 010-1.5H7V2.75A.75.75 0 017.75 2z"></path>\n\t\t\t\t\t\t</svg>\n\t\t\t\t\t</button>\n\t\t\t\t\t<div class="demo-code__content-item-add-back-title">\n\t\t\t\t\t\t<h4 class="demo-code__content-item-add-title">Add class to<br>css properties</h4>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t'));var o=(new DOMParser).parseFromString(e,"text/xml");return o.querySelector(".demo-code__content").append(n),o.firstChild.innerHTML}(i[t],c.classList[1]);n.insertAdjacentHTML("beforeend","\n\t\t\t".concat(o,"\n\t\t\t").trim()),checksIfBlockIsOutOfWindow(n.querySelector(".demo-code--classes")),function addEventBtns_ForDemoTemp(e,t){e.forEach((function(e){e.addEventListener("click",(function(e){var n=e.currentTarget.dataset.classBtn,c="btn-menu-".concat(t.dataset.type),o=e.currentTarget.closest(".demo-code__content-items").querySelector(".demo-code__content-item-btn--active");if(o&&o.classList.remove("demo-code__content-item-btn--active"),e.currentTarget.classList.toggle("demo-code__content-item-btn--active"),t.classList.contains(n))return e.currentTarget.classList.remove("demo-code__content-item-btn--active"),void t.classList.remove(n);w(t,c,n.slice(-1))?setTimeout((function(){t.classList.add(n)}),350):t.classList.add(n)}))}))}(n.querySelectorAll(".demo-code__content-item-btn"),c),function addEventBtns_ForDemoTemp_AddActiveCLass(e){e.forEach((function(e){e.addEventListener("click",(function(e){for(var t=e.currentTarget.dataset.classBtn,n=findCss(h=t,1),c=y(n),o=0;o<c.length;o++)b+="".concat(c[o],"\n");b=function changeSelectorActiveClass(e){return e.replace(/[a-z](-[1-9])/g,"--active")}(b);var a=e.currentTarget.closest(".demo-code__content-item-add").querySelector(".demo-code__content-item-add-title");u(a,"Active class added",a.innerHTML)}))}))}(n.querySelectorAll(".demo-code__content-item-add-btn")),function addEventBtn_DeleteCssProperties(e){e.addEventListener("click",(function(){cleanValuesAtClosing();var t=e.closest(".demo-code__container-back-delete-wrapper").querySelector(".demo-code__content-item-add-title");u(t,"CSS properties cleared",t.innerHTML)}))}(n.querySelector(".demo-code__container-delete")),function checkActiveClass_AtBtn(e){for(var t=0,n=e.classList,c="btn-menu-".concat(e.dataset.type),o=0;l[c]>o;o++)if(n.contains("".concat(c,"-").concat(o+1))){t="".concat(c,"-").concat(o+1);break}t&&E(e,t)}(c)}"demo"!==t&&function addEvent_CopyText(e){e.addEventListener("click",m)}(n.querySelector(".demo-code__container-btn-copy")),I.classList.add("example-items-active")},j=function closeMenuDemo(){var e=B.querySelector(".example-item-active");if(e){!function closeCodeForDemo(e){I.classList.remove("example-items-active");var t=e.querySelector(".demo-code");t&&t.remove(),cleanValuesAtClosing()}(e),e.classList.remove("example-item-active"),e.querySelector(".open-menu").remove();var t=e.querySelector(".example__item-content-btn");w(t,"btn-menu-".concat(t.dataset.type),0)}},D=function openMenuDemo(e){j(),e.append(M.content.cloneNode(1)),e.classList.add("example-item-active");var t=e.querySelector(".open-menu");!function changeTempOpenMenu(e){e.classList.add("open-menu-disable"),setTimeout((function(){e.classList.remove("open-menu-disable"),e.classList.add("open-menu-active")}))}(t),function addEventClickShowCode(e){e.querySelectorAll(".open-menu__content-item-btn").forEach((function(e){e.addEventListener("click",H)}))}(t)},O=function changeMenuDemo(e){var t=e.currentTarget.closest(".example__item");t.classList.contains("example-item-active")?j():D(t)};document.querySelectorAll(".example__item").forEach((function(e){e.querySelector(".example__item-content-btn").addEventListener("click",O)}));var R=document.querySelector(".btn-settings"),W=document.querySelector(".settings");R.addEventListener("click",(function(){W.classList.toggle("settings--active")}));var V=document.querySelectorAll(".input_radio-settings"),z=document.querySelectorAll(".input_text-settings"),N=document.querySelectorAll(".select-settings");function setValueBlockTextSettings(e){document.querySelectorAll(e).forEach((function(e){var t=e.dataset.setSettings;t in r&&(e.value=r[t])}))}!function addEventInputRadio(e){e.forEach((function(e){e.addEventListener("input",(function(e){setSettings(e.currentTarget)}))}))}(V),function addEventInputText(e){e.forEach((function(e){e.addEventListener("focusout",(function(e){setSettings(e.currentTarget)}))}))}(z),function addEventSelect(e){e.forEach((function(e){e.addEventListener("change",(function(e){setSettings(e.currentTarget)}))}))}(N)},"function"==typeof define&&define.amd?define(factory):factory();
+import {
+	TABLE,
+	SETTINGS,
+
+	cleanValuesAtClosing
+} from "./constants.js";
+
+import { createTempHtml_ForDemo } from "./create-temp/html.js";
+import { createTempCss_ForDemo } from "./create-temp/css.js";
+import { createTempScss_ForDemo } from "./create-temp/scss.js";
+import { createTempJs_ForDemo } from "./create-temp/js.js";
+import { createTempDemo_ForDemo } from "./create-temp/demo.js";
+
+import { addEvent_CopyText } from "./handler/copy.js";
+
+import {
+	addEventInputRadio,
+	addEventInputText,
+	addEventSelect
+} from "./settings/settings.js";
+
+import {
+	checksIfBlockIsOutOfWindow
+} from "./utils/index.js";
+import {
+	retrievesTempPressedBtnOpenDemo,
+	removeLastActiveClassBtn,
+	checkActiveClass_AtBtn
+} from "./utils/html.js";
+import {
+	addEventBtns_ForDemoTemp_AddActiveCLass,
+	addEventBtns_ForDemoTemp,
+	addEventBtn_DeleteCssProperties
+} from "./utils/demo.js";
+
+
+document.addEventListener("DOMContentLoaded", () => {
+	hljs.highlightAll();
+	setCheckedInputRadioSettings();
+	setValueBlockTextSettings(".input_text-settings");
+	setValueBlockTextSettings(".select-settings");
+});
+
+
+const blockExample = document.querySelector(".example");
+const blockExampleItems = blockExample.querySelector(".example__items");
+const templateOpenMenu = document.querySelector(".open-menu-temp");
+
+
+function createBaseTemp(createFun, tempBtn, typeCode, currentItem) {
+	const tempMenuIconBtn = createFun(
+		tempBtn,
+		typeCode
+	);
+
+	currentItem.insertAdjacentHTML("beforeend", `
+		${tempMenuIconBtn}
+		`.trim()
+	);
+};
+
+
+const showsCodeForDemo = (event) => {
+	const typeCode = event.currentTarget.dataset.typeCode;
+	const currentItem = event.currentTarget.closest(".example-item-active");
+
+	if ( currentItem.querySelector(`.code-${typeCode}`) ) {
+		currentItem.querySelector(`.code-${typeCode}`).remove();
+		blockExampleItems.classList.remove("example-items-active");
+
+		return;
+	};
+
+	if ( currentItem.querySelector(".demo-code") ) {
+		currentItem.querySelector(`.demo-code`).remove();
+	};
+
+	if ( typeCode === "html" ) {
+		createBaseTemp(
+			createTempHtml_ForDemo,
+			retrievesTempPressedBtnOpenDemo(event.currentTarget),
+			typeCode,
+			currentItem
+		);
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-html"));
+
+	} else if ( typeCode === "css" ) {
+		createBaseTemp(createTempCss_ForDemo, event.currentTarget, typeCode, currentItem);
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-css"));
+
+	} else if ( typeCode === "js" ) {
+		createBaseTemp(createTempJs_ForDemo, event.currentTarget, typeCode, currentItem);
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-javascript"));
+
+	} else if ( typeCode === "scss" ) {
+		createBaseTemp(createTempScss_ForDemo, event.currentTarget, typeCode, currentItem);
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".language-scss"));
+	}
+	else if ( typeCode === "demo" ) {
+		const currentBtn = event.currentTarget.closest(".example__item").querySelector(".example__item-content-btn");
+		const tempDemoHtml = createTempDemo_ForDemo(TABLE[typeCode], currentBtn.classList[1]);
+
+		currentItem.insertAdjacentHTML("beforeend", `
+			${tempDemoHtml}
+			`.trim()
+		);
+
+		checksIfBlockIsOutOfWindow(currentItem.querySelector(".demo-code--classes"));
+		addEventBtns_ForDemoTemp(
+			currentItem.querySelectorAll(".demo-code__content-item-btn"),
+			currentBtn
+		);
+		addEventBtns_ForDemoTemp_AddActiveCLass(
+			currentItem.querySelectorAll(".demo-code__content-item-add-btn"),
+		);
+		addEventBtn_DeleteCssProperties(
+			currentItem.querySelector(".demo-code__container-delete"),
+		);
+		checkActiveClass_AtBtn(currentBtn);
+	};
+
+	if ( typeCode !== "demo" ) {
+		addEvent_CopyText(currentItem.querySelector(".demo-code__container-btn-copy"));
+	};
+
+	blockExampleItems.classList.add("example-items-active");
+};
+
+const closeCodeForDemo = (activeBlock) => {
+	blockExampleItems.classList.remove("example-items-active");
+
+	const openCodeDemo = activeBlock.querySelector(".demo-code");
+
+	if ( openCodeDemo ) {
+		openCodeDemo.remove();
+	};
+
+	cleanValuesAtClosing();
+};
+
+const addEventClickShowCode = (block) => {
+	const btns = block.querySelectorAll(".open-menu__content-item-btn");
+
+	btns.forEach((btn) => {
+		btn.addEventListener("click", showsCodeForDemo);
+	});
+};
+
+
+const changeTempOpenMenu = (block) => {
+	block.classList.add("open-menu-disable");
+
+	setTimeout(() => {
+		block.classList.remove("open-menu-disable");
+		block.classList.add("open-menu-active");
+	});
+};
+
+
+const closeMenuDemo = () => {
+	const activeBlock = blockExample.querySelector(".example-item-active");
+
+	if ( activeBlock ) {
+		closeCodeForDemo(activeBlock);
+
+		activeBlock.classList.remove("example-item-active");
+		activeBlock.querySelector(".open-menu").remove();
+
+		const currentBtn = activeBlock.querySelector(".example__item-content-btn");
+		removeLastActiveClassBtn(currentBtn, `btn-menu-${currentBtn.dataset.type}`, 0);
+	};
+};
+
+const openMenuDemo = (currentItem) => {
+	closeMenuDemo();
+
+	currentItem.append(templateOpenMenu.content.cloneNode(true));
+	currentItem.classList.add("example-item-active");
+
+	const blockTempContent = currentItem.querySelector(".open-menu");
+	changeTempOpenMenu(blockTempContent);
+	addEventClickShowCode(blockTempContent);
+};
+
+const changeMenuDemo = (event) => {
+	// Открывает и закрывает меню демонстрации.
+	const currentItem = event.currentTarget.closest(".example__item");
+
+	currentItem.classList.contains("example-item-active") ? closeMenuDemo() : openMenuDemo(currentItem);
+};
+
+
+const exampleItems = document.querySelectorAll(".example__item");
+
+exampleItems.forEach((item) => {
+	const btn = item.querySelector(".example__item-content-btn");
+	btn.addEventListener("click", changeMenuDemo);
+});
+
+
+const btnOpenSettings = document.querySelector(".btn-settings");
+const blockSettings = document.querySelector(".settings");
+
+btnOpenSettings.addEventListener("click", () => {
+	blockSettings.classList.toggle("settings--active");
+});
+
+
+const inputsRadioSettings = document.querySelectorAll(".input_radio-settings");
+const inputsTextSettings = document.querySelectorAll(".input_text-settings");
+const selectsSettings = document.querySelectorAll(".select-settings");
+addEventInputRadio(inputsRadioSettings);
+addEventInputText(inputsTextSettings);
+addEventSelect(selectsSettings);
+
+
+function setCheckedInputRadioSettings() {
+	if ( "color" in SETTINGS && SETTINGS["color"] ) {
+		document.querySelectorAll(".input_radio-settings").forEach((input) => {
+			const value = input.value;
+			
+			if ( value === SETTINGS["color"] ) {
+				input.checked = true;
+			};
+		});
+	};
+};
+
+function setValueBlockTextSettings(classBlock) {
+	document.querySelectorAll(classBlock).forEach((block) => {
+		const data = block.dataset.setSettings;
+
+		if ( data in SETTINGS ) {
+			block.value = SETTINGS[data];
+		};
+	});
+};

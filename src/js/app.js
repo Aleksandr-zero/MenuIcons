@@ -1,24 +1,15 @@
 import {
 	TABLE,
-	SETTINGS
+	SETTINGS,
+
+	cleanValuesAtClosing
 } from "./constants.js";
 
-import {
-	createTempHtml_ForDemo,
-	retrievesTempPressedBtnOpenDemo,
-	createTempCss_ForDemo,
-	createTempJs_ForDemo,
-	createTempScss_ForDemo,
-
-	createTempDemo_ForDemo,
-	addEventBtns_ForDemoTemp,
-	addEventBtns_ForDemoTemp_AddActiveCLass,
-	checkActiveClass_AtBtn,
-	removeLastActiveClassBtn,
-	addEventBtn_DeleteCssProperties,
-
-	cleanValuesAtClosing,
-} from "./createTemp.js";
+import { createTempHtml_ForDemo } from "./create-temp/html.js";
+import { createTempCss_ForDemo } from "./create-temp/css.js";
+import { createTempScss_ForDemo } from "./create-temp/scss.js";
+import { createTempJs_ForDemo } from "./create-temp/js.js";
+import { createTempDemo_ForDemo } from "./create-temp/demo.js";
 
 import { addEvent_CopyText } from "./handler/copy.js";
 
@@ -29,8 +20,18 @@ import {
 } from "./settings/settings.js";
 
 import {
-	checksIfBlockIsOutOfWindow,
+	checksIfBlockIsOutOfWindow
 } from "./utils/index.js";
+import {
+	retrievesTempPressedBtnOpenDemo,
+	removeLastActiveClassBtn,
+	checkActiveClass_AtBtn
+} from "./utils/html.js";
+import {
+	addEventBtns_ForDemoTemp_AddActiveCLass,
+	addEventBtns_ForDemoTemp,
+	addEventBtn_DeleteCssProperties
+} from "./utils/demo.js";
 
 
 document.addEventListener("DOMContentLoaded", () => {
