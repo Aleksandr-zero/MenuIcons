@@ -5,6 +5,7 @@ import {
 
 import { setColor } from "../handler/color.js";
 import { setAnimation } from "../handler/animation.js";
+import { setBtn } from "../handler/btn.js";
 
 import { buildReadyTemp_Hljs } from "../utils/index.js";
 import { findCss } from "../utils/css.js";
@@ -19,6 +20,7 @@ export function createTempScss_ForDemo(tempBtn, typeTempCode) {
 	let tempScss = buildTempScss(rawCssArr, foundCssSelectors, tableScss);
 	tempScss = setColor(tempScss);
 	tempScss = setAnimation(tempScss);
+	tempScss = setBtn(nameBtn, tempScss);
 	tempScss = buildReadyTemp_Hljs(tempScss, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "scss");
 
 	let newTempCodeForDemo = TABLE[typeTempCode];

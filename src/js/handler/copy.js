@@ -23,6 +23,6 @@ const copyToClipboard = (event) => {
 };
 
 
-export function addEvent_CopyText(btnCopy) {
+export function addEventCopyText(btnCopy) {
 	btnCopy.addEventListener("click", copyToClipboard);
 };

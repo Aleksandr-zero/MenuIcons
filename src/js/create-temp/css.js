@@ -5,6 +5,7 @@ import {
 
 import { setColor } from "../handler/color.js";
 import { setAnimation } from "../handler/animation.js";
+import { setBtn } from "../handler/btn.js";
 
 import { buildReadyTemp_Hljs } from "../utils/index.js";
 import {
@@ -19,6 +20,7 @@ export const createTempCss_ForDemo = (tempBtn, typeTempCode) => {
 	let blankCss = cssBuild(nameBtn);
 	blankCss = setColor(blankCss);
 	blankCss = setAnimation(blankCss);
+	blankCss = setBtn(nameBtn, blankCss);
 
 	let newTempCodeForDemo = TABLE[typeTempCode];
 	newTempCodeForDemo = newTempCodeForDemo.replace(/{{ code-type }}/, `code-${typeTempCode}`);

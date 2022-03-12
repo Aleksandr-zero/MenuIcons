@@ -13,6 +13,7 @@ export const SETTINGS = getSettingsUser();
 
 export let ACTIVE_CLASS_AT_BTN = false;
 export let CSS_FOR_ACTIVE_CLASS = "";
+export const PREFIX_ACTIVE_CLASS = "--active";
 
 export const NUMBER_MOVE_BORDER_OF_SCREEN = 50; // px
 export const NUMBER_CHECK_BORDER_OF_SCREEN = 10; // px
@@ -54,7 +55,7 @@ export const COMMON_JS = `
 const menuBtn = document.querySelector(".{{ menu-btn-class }}");
 
 menuBtn.addEventListener("click", () => {
-	menuBtn.classList.toggle("{{ menu-btn-class }}--active");
+	menuBtn.classList.toggle("{{ menu-btn-active-class }}");
 });
 `.trim();
 

@@ -11,7 +11,7 @@ import { createTempScss_ForDemo } from "./create-temp/scss.js";
 import { createTempJs_ForDemo } from "./create-temp/js.js";
 import { createTempDemo_ForDemo } from "./create-temp/demo.js";
 
-import { addEvent_CopyText } from "./handler/copy.js";
+import { addEventCopyText } from "./handler/copy.js";
 
 import {
 	addEventInputRadio,
@@ -120,7 +120,7 @@ const showsCodeForDemo = (event) => {
 	};
 
 	if ( typeCode !== "demo" ) {
-		addEvent_CopyText(currentItem.querySelector(".demo-code__container-btn-copy"));
+		addEventCopyText(currentItem.querySelector(".demo-code__container-btn-copy"));
 	};
 
 	blockExampleItems.classList.add("example-items-active");
@@ -185,13 +185,11 @@ const openMenuDemo = (currentItem) => {
 const changeMenuDemo = (event) => {
 	// Открывает и закрывает меню демонстрации.
 	const currentItem = event.currentTarget.closest(".example__item");
-
 	currentItem.classList.contains("example-item-active") ? closeMenuDemo() : openMenuDemo(currentItem);
 };
 
 
 const exampleItems = document.querySelectorAll(".example__item");
-
 exampleItems.forEach((item) => {
 	const btn = item.querySelector(".example__item-content-btn");
 	btn.addEventListener("click", changeMenuDemo);

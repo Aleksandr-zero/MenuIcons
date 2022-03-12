@@ -22,6 +22,8 @@ export function getSettingsUser() {
   settings["color_sets"] = localStorage.getItem("color_sets");
   settings["animation_delay"] = localStorage.getItem("animation_delay");
   settings["function_timing"] = localStorage.getItem("function_timing");
+  settings["name_btn"] = localStorage.getItem("name_btn");
+  settings["active_class_btn"] = localStorage.getItem("active_class_btn");
 
   return settings;
 };

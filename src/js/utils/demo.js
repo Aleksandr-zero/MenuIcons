@@ -3,6 +3,7 @@ import {
 	NUMBER_FOR_DELAY_ANIMATE,
 	ACTIVE_CLASS_AT_BTN,
 	CSS_FOR_ACTIVE_CLASS,
+	PREFIX_ACTIVE_CLASS,
 
 	cleanValuesAtClosing,
 	changeConstantActiveClass
@@ -30,7 +31,7 @@ export function addEventBtns_ForDemoTemp_AddActiveCLass(btns) {
 				cssForActiveClass += `${readyCssArr[i]}\n`;
 			};
 			changeConstantActiveClass(activeClass, cssForActiveClass);
-			changeConstantActiveClass(activeClass, changeSelectorActiveClass(CSS_FOR_ACTIVE_CLASS));
+			changeConstantActiveClass(activeClass, changeSelectorActiveClass(CSS_FOR_ACTIVE_CLASS, activeClass));
 
 			const titleHelp = event.currentTarget.closest(".demo-code__content-item-add").querySelector(".demo-code__content-item-add-title");
 			changeTitleBtnCopy(titleHelp, "Active class added", titleHelp.innerHTML);
@@ -39,10 +40,11 @@ export function addEventBtns_ForDemoTemp_AddActiveCLass(btns) {
 };
 
 
-const changeSelectorActiveClass = (cssText) => {
-	cssText = cssText.replace(
-		/[a-z](-[1-9])/g, "--active"
-	);
+const changeSelectorActiveClass = (cssText, activeClass) => {
+	const nameBtn = activeClass.replace(/-[1-9]{1}/g, "");
+	const activeClassBtn = `${nameBtn}${PREFIX_ACTIVE_CLASS}`;
+	const reg = new RegExp(`${activeClass}`, "g");
+	cssText = cssText.replace(reg, activeClassBtn);
 
 	return cssText;
 };
