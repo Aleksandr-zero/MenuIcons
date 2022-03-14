@@ -11,7 +11,7 @@ import { getSettingsUser } from "./settings/settings.js";
 
 export const SETTINGS = getSettingsUser();
 
-export let ACTIVE_CLASS_AT_BTN = false;
+export let ACTIVE_CLASS_AT_BTN = "";
 export let CSS_FOR_ACTIVE_CLASS = "";
 export const PREFIX_ACTIVE_CLASS = "--active";
 
@@ -35,6 +35,18 @@ export const TABLE = {
 	"scss": `${TEMP_SCSS}`,
 	"demo": `${TEMP_DEMO}`,
 };
+
+export const PSEUDO_CLASSES = [
+	"last-child",
+	"hover",
+	"first-child",
+	"nth-child",
+];
+
+export const PSEUDO_ELEMENTS = [
+	"after",
+	"before",
+];
 
 export const ACTIVE_CLASSES_BUTTON = {
 	"btn-menu-hamburger": 2,

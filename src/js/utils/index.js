@@ -1,7 +1,7 @@
 import {
 	NUMBER_MOVE_BORDER_OF_SCREEN,
 	NUMBER_CHECK_BORDER_OF_SCREEN,
-	ACTIVE_CLASSES_BUTTON
+	ACTIVE_CLASSES_BUTTON,
 } from "../constants.js";
 
 
@@ -28,6 +28,8 @@ export function is_ActiveClass_AtCss(textCss, nameBtn) {
 			return true;
 		};
 	};
+
+	return false;
 };
 
 

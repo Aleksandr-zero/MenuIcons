@@ -35,8 +35,8 @@ export function findCss(nameBtn, setActiveClass) {
 					if ( style.cssRules[index].cssText.includes(nameBtn) ) {
 						let readyCss = style.cssRules[index].cssText;
 
-						const is_activeClass = is_ActiveClass_AtCss(readyCss, nameBtn);
-						if ( is_activeClass && !setActiveClass ) continue;
+						const isActiveClass = is_ActiveClass_AtCss(readyCss, nameBtn);
+						if ( isActiveClass && !setActiveClass ) continue;
 
 						cssSelectors.push(readyCss);
 					};
