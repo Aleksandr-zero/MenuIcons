@@ -11,7 +11,7 @@ import { getSettingsUser } from "./settings/settings.js";
 
 export const SETTINGS = getSettingsUser();
 
-export let ACTIVE_CLASS_AT_BTN = "";
+export let ACTIVE_CLASS_AT_BTN = false; // string
 export let CSS_FOR_ACTIVE_CLASS = "";
 export const PREFIX_ACTIVE_CLASS = "--active";
 

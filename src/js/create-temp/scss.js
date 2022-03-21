@@ -28,6 +28,7 @@ export function createTempScss_ForDemo(tempBtn, typeTempCode) {
 	let tempScss = buildTempScss(rawCssArr, foundCssSelectors, tableScss);
 	tempScss = setColor(tempScss);
 	tempScss = setAnimation(tempScss);
+	tempScss = setPrefixActiveBtn(tempScss);
 	tempScss = setBtn(nameBtn, tempScss);
 	tempScss = buildReadyTemp_Hljs(tempScss, [/{{ name-btn }}/g, /\t/g], [nameBtn, "  "], "scss");
 
@@ -122,25 +123,21 @@ const buildTempScss = (rawCssArr, foundCssSelectors, tableScss) => {
 			} else {
 				const tabMultiplier = "\t".repeat(j);
 				arrTabSize.push(j);
-
 				rawScss += `\n\n${tabMultiplier}${selector} {\n{{ ${i} }}`;
 
 				if ( typeof lastIndexSelectorArr === "number" ) {
-					const lastOneStepsIndexSelectorArr = tableIndices[tableIndices.length - 2];
+					const isNextSelectorFinite = (tableScss[i + 1]) ? tableScss[i + 1].indexOf(selector) : null;
 
-					if ( j === lastIndexSelectorArr || ( j > lastIndexSelectorArr && j > lastOneStepsIndexSelectorArr ) ) {
+					if ( isNextSelectorFinite === -1 || isNextSelectorFinite === null ) {
 						rawScss += `\n${tabMultiplier}}`;
-					};
-					if ( j < lastIndexSelectorArr ) {
-						const reg = new RegExp(`${selector}`, "g");
-						if ( Boolean(ACTIVE_CLASS_AT_BTN) && selector[0] === "." ) {
-							rawScss = rawScss.replace(reg, `}\n${tabMultiplier}&${selector}`);
-							rawScss = rawScss.replace(/-\d+/g, PREFIX_ACTIVE_CLASS);
-						} else {
-							rawScss = rawScss.replace(reg, `}\n${tabMultiplier}${selector}`);
-						};
+					} 
 
-						// rawScss = rawScss.replace(reg, `}\n${tabMultiplier}${selector}`);
+					if ( j < lastIndexSelectorArr ) {
+						// закрывает тэг если следющиуй селектор не входит в прошлый (древо)
+						const lastIndexForCss = `{{ ${i - 1} }}`;
+						const reg = new RegExp(`${lastIndexForCss}\n\t+}`, "g");
+
+						rawScss = rawScss.replace(reg, `${lastIndexForCss}\n${"\t".repeat(j + 1)}}\n${tabMultiplier}}`);
 					};
 				};
 
@@ -230,6 +227,15 @@ const closeTempHooks = (scss, countHook) => {
 	});
 
 	return scss;
+};
+
+const setPrefixActiveBtn = (scss) => {
+	if ( Boolean(ACTIVE_CLASS_AT_BTN) ) {
+		const reg = new RegExp(`.${ACTIVE_CLASS_AT_BTN}`, "g");
+		scss = scss.replace(reg, `&.${ACTIVE_CLASS_AT_BTN}`);
+	};
+
+	return scss
 };
 
 
